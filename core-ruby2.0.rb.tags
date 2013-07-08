@@ -1,0 +1,857 @@
+# format=pipe
+DEBUG|Class:Thread Description:Returns the thread debug level.  Available only if compiled withTHREAD_DEBUG=-1. -|()->num|
+DEBUG =|Class:Thread Description:Sets the thread debug level.  Available only if compiled withTHREAD_DEBUG=-1. -|num->|
+abort|||
+abort_on_exception|Class:Thread Description:Returns the status of the thread-local "abort on exception" condition forthis thr.  The default is false.  See also abort_on_exception=.  There is also a class level method to set this for all threads, see ::abort_on_exception. -|()->true or false|
+abort_on_exception=|Class:Thread Description:When set to true, all threads (including the main program)will abort if an exception is raised in this thr.  The process will effectively exit(0).  See also abort_on_exception.  There is also a class level method to set this for all threads, see ::abort_on_exception=. -|boolean->true or false|
+absolute_path|||
+acos|Class:Math Description:Computes the arc cosine of x. Returns 0..PI.  Domain: [-1, 1]  Codomain: [0, PI] -|(x)->Float|
+acosh|Class:Math Description:Computes the inverse hyperbolic cosine of x.  Domain: [1, INFINITY)  Codomain: [0, INFINITY) -|(x)->Float|
+aliases|Class:Encoding Description:Returns the hash of available encoding alias and original encoding name. -|()->{"alias1" =&gt; "orig1", "alias2" =&gt; "orig2", ...}|
+all_symbols|Class:Symbol Description:Returns an array of all the symbols currently in Ruby's symbol table. -|()->array|
+asciicompat_encoding|Class:Encoding::Converter Description:Returns the corresponding ASCII compatible encoding.  Returns nil if the argument is an ASCII compatible encoding.  "corresponding ASCII compatible encoding" is an ASCII compatible encodingwhich can represents exactly the same characters as the given ASCIIincompatible encoding. So, no conversion undefined error occurs whenconverting between the two encodings. -|(string)->encoding or nil|
+asin|Class:Math Description:Computes the arc sine of x. Returns -PI/2..PI/2.  Domain: [-1, -1]  Codomain: [-PI/2, PI/2] -|(x)->Float|
+asinh|Class:Math Description:Computes the inverse hyperbolic sine of x.  Domain: (-INFINITY, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+assoc|||
+at|||
+atan|Class:Math Description:Computes the arc tangent of x. Returns -PI/2..PI/2.  Domain: (-INFINITY, INFINITY)  Codomain: (-PI/2, PI/2) -|(x)->Float|
+atan2|Class:Math Description:Computes the arc tangent given y and x. Returns aFloat in the range -PI..PI.  Domain: (-INFINITY, INFINITY)  Codomain: [-PI, PI] -|(y, x)->Float|
+atanh|Class:Math Description:Computes the inverse hyperbolic tangent of x.  Domain: (-1, 1)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+atime|||
+basename|Class:File Description:Returns the last component of the filename given in file_name,which can be formed using both File::SEPARATOR andFile::ALT_SEPARATOR as the separator whenFile::ALT_SEPARATOR is not nil. Ifsuffix is given and present at the end of file_name, itis removed. -|(file_name [, suffix] )->base_name|
+binread|Class:IO Description:Opens the file, optionally seeks to the given offset, then returnslength bytes (defaulting to the rest of the file).binread ensures the file is closed before returning. The openmode would be "rb:ASCII-8BIT". -|(name, [length [, offset]] )->string|
+binwrite|Class:IO Description:Same as IO.write except opening the file in binary mode andASCII-8BIT encoding ("wb:ASCII-8BIT"). -|(name, string, [offset] )->fixnum|
+blockdev?|||
+cbrt|Class:Math Description:Returns the cube root of x.  Domain: [0, INFINITY)  Codomain:[0, INFINITY) -|(x)->Float|
+change_privilege|||
+chardev?|||
+chdir|Class:Dir Description:Changes the current working directory of the process to the given string.When called without an argument, changes the directory to the value of theenvironment variable HOME, or LOGDIR.SystemCallError (probably Errno::ENOENT) if thetarget directory does not exist.  If a block is given, it is passed the name of the new current directory,and the block is executed with that as the current directory. The originalworking directory is restored when the block exits. The return value ofchdir is the value of the block. chdir blocks canbe nested, but in a multi-threaded program an error will be raised if athread attempts to open a chdir block while another thread hasone open.  produces: -|( [ string] )->0|
+chmod|Class:File Description:Changes permission bits on file to the bit pattern represented bymode_int. Actual effects are platform dependent; on Unix systems,see chmod(2) for details. Follows symbolic links. Also seeFile#lchmod. -|(mode_int)->0|
+chown|Class:File Description:Changes the owner and group of file to the given numeric owner andgroup id's. Only a process with superuser privileges may change the ownerof a file. The current owner of a file may change the file's group to anygroup to which the owner belongs. A nil or -1 owner or groupid is ignored. Follows symbolic links. See also File#lchown. -|(owner_int, group_int )->0|
+chroot|Class:Dir Description:Changes this process's idea of the file system root. Only a privilegedprocess may make this call. Not available on all platforms. On Unixsystems, see chroot(2) for more information. -|( string )->0|
+clear|||
+compatible?|Class:Encoding Description:Checks the compatibility of two objects.  If the objects are both strings they are compatible when they areconcatenatable.  The encoding of the concatenated string will be returnedif they are compatible, nil if they are not.  If the objects are non-strings their encodings are compatible when theyhave an encoding and:  Either encoding is US-ASCII compatible  One of the encodings is a 7-bit encoding -|(obj1, obj2)->enc or nil|
+compile|||
+compile_file|Class:RubyVM::InstructionSequence Description:Takes file, a String with thelocation of a Ruby source file, reads, parses and compiles the file, andreturns iseq, the compiled InstructionSequence with sourcelocation metadata set.  Optionally takes options, which can be true,false or a Hash, to modify the default behaviorof the Ruby iseq compiler.  For details regarding valid compile options see ::compile_option=. -|(file[, options])->iseq|
+compile_option|Class:RubyVM::InstructionSequence Description:Returns a hash of default options used by the Ruby iseq compiler.  For details, see ::compile_option=. -|()->options|
+compile_option =|Class:RubyVM::InstructionSequence Description:Sets the default values for various optimizations in the Ruby iseqcompiler.  Possible values for options include true, whichenables all options, false which disables all options, andnil which leaves all options unchanged.  You can also pass a Hash of options that you wantto change, any options not present in the hash will be left unchanged.  Possible option names (which are keys in options) which can beset to true or false include:  :inline_const_cache  :instructions_unification  :operands_unification  :peephole_optimization  :specialized_instruction  :stack_caching  :tailcall_optimization  :trace_instruction  Additionally, :debug_level can be set to an integer.  These default options can be overwritten for a single run of the iseqcompiler by passing any of the above values as the optionsparameter to ::new, ::compile and ::compile_file. -|options->|
+constants|Class:Module Description:Returns an array of the names of the constants accessible in mod.This includes the names of constants in any included modules (example atstart of section), unless the inherit parameter is set tofalse.  Also see Module::const_defined?. -|(inherit=true)->array|
+copy_stream|Class:IO Description:::copy_stream copiessrc to dst. src and dst is either afilename or an IO.  This method returns the number of bytes copied.  If optional arguments are not given, the start position of the copy is thebeginning of the filename or the current file offset of the IO. The end position of the copy is the end of file.  If copy_length is given, No more than copy_length bytesare copied.  If src_offset is given, it specifies the start position of thecopy.  When src_offset is specified and src is an IO, ::copy_stream doesn't move thecurrent file offset. -|(src, dst)->|
+cos|Class:Math Description:Computes the cosine of x (expressed in radians). Returns a Float in the range -1.0..1.0.  Domain: (-INFINITY, INFINITY)  Codomain: [-1, 1] -|(x)->Float|
+cosh|Class:Math Description:Computes the hyperbolic cosine of x (expressed in radians).  Domain: (-INFINITY, INFINITY)  Codomain: [1, INFINITY) -|(x)->Float|
+count|||
+count_objects|Class:ObjectSpace Description:Counts objects for each type.  It returns a hash, such as:  The contents of the returned hash are implementation specific. It may bechanged in future.  If the optional argument result_hash is given, it isoverwritten and returned. This is intended to avoid probe effect.  This method is only expected to work on C Ruby. -|([result_hash])->hash|
+ctime|||
+current|||
+daemon|Class:Process Description:Detach the process from controlling terminal and run in the background assystem daemon.  Unless the argument nochdir is true (i.e. non false), itchanges the current working directory to the root ("/"). Unless theargument noclose is true, daemon() will redirect standard input, standardoutput and standard error to /dev/null. Return zero on success, or raiseone of Errno::*. -|()->0|
+default_external|Class:Encoding Description:Returns default external encoding.  The default external encoding is used by default for strings created fromthe following locations:  CSV  File data read from disk  SDBM  StringIO  Zlib::GzipReader  Zlib::GzipWriter  String#inspect  Regexp#inspect  While strings created from these locations will have this encoding, theencoding may not be valid.  Be sure to check String#valid_encoding?.  File data written to disk will be transcoded to thedefault external encoding when written.  The default external encoding is initialized by the locale or -E option. -|()->enc|
+default_external =|Class:Encoding Description:Sets default external encoding.  You should not set ::default_external inruby code as strings created before changing the value may have a differentencoding from strings created after the value was changed., instead youshould use ruby -E to invoke ruby with the correctdefault_external.  See ::default_external forinformation on how the default external encoding is used. -|enc->|
+default_internal|Class:Encoding Description:Returns default internal encoding.  Strings will be transcoded to thedefault internal encoding in the following places if the default internalencoding is not nil:  CSV  Etc.sysconfdir and Etc.systmpdir  File data read from disk  File names from Dir  Integer#chr  String#inspect and Regexp#inspect  Strings returned from Curses  Strings returned from Readline  Strings returned from SDBM  Time#zone  Values from ENV  Values in ARGV including $PROGRAM_NAME  __FILE__  Additionally String#encode and String#encode! use the defaultinternal encoding if no encoding is given.  The locale encoding (__ENCODING__), not ::default_internal, isused as the encoding of created strings.  ::default_internal isinitialized by the source file's internal_encoding or -E option. -|()->enc|
+default_internal =|Class:Encoding Description:Sets default internal encoding or removes default internal encoding whenpassed nil.  You should not set ::default_internal inruby code as strings created before changing the value may have a differentencoding from strings created after the change.  Instead you should useruby -E to invoke ruby with the correct default_internal.  See ::default_internal forinformation on how the default internal encoding is used. -|enc or nil->|
+define_finalizer|Class:ObjectSpace Description:Adds aProc as a finalizer, to be called after obj wasdestroyed. -|(obj, aProc=proc())->|
+delete|||
+delete_if|||
+detach|Class:Process Description:Some operating systems retain the status of terminated child processesuntil the parent collects that status (normally using some variant ofwait(). If the parent never collects this status, the childstays around as a zombie process. Process::detachprevents this by setting up a separate Ruby thread whose sole job is toreap the status of the process pid when it terminates. Usedetach only when you do not intent to explicitly wait for thechild to terminate.  The waiting thread returns the exit status of the detached process when itterminates, so you can use Thread#join to know the result.  Ifspecified pid is not a valid child process ID, the thread returnsnil immediately.  The waiting thread has pid method which returns the pid.  In this first example, we don't reap the first child process, so it appearsas a zombie in the process status display.  produces:  In the next example, Process::detach is used to reap the childautomatically.  (produces no output) -|(pid)->thread|
+directory?|||
+dirname|Class:File Description:Returns all components of the filename given in file_name exceptthe last one. The filename can be formed using bothFile::SEPARATOR and File::ALT_SEPARATOR as theseparator when File::ALT_SEPARATOR is not nil. -|(file_name)->dir_name|
+disable|||
+disasm|Class:RubyVM::InstructionSequence Description:Returns the instruction sequence as a String in human readableform.  Produces: -|()->str|
+disassemble|Class:RubyVM::InstructionSequence Description:Returns the instruction sequence as a String in human readableform.  Produces: -|()->str|
+dump|||
+each|||
+each_key|||
+each_object|Class:ObjectSpace Description:Calls the block once for each living, nonimmediate object in this Rubyprocess. If module is specified, calls the block for only thoseclasses or modules that match (or are a subclass of) module.Returns the number of objects found. Immediate objects(Fixnums, Symbols true,false, and nil) are never returned. In theexample below, each_object returns both the numbers we definedand several constants defined in the Math module.  If no block is given, an enumerator is returned instead.  produces: -|([module]) {obj ... }->fixnum|
+each_pair|||
+each_value|||
+egid|||
+egid =|Class:Process Description:Sets the effective group ID for this process. Not available on allplatforms. -|fixnum->fixnum|
+euid|||
+empty?|||
+enable|||
+enabled?|||
+entries|||
+erf|Class:Math Description:Calculates the error function of x.  Domain: (-INFINITY, INFINITY)  Codomain: (-1, 1) -|(x)->Float|
+erfc|Class:Math Description:Calculates the complementary error function of x.  Domain: (-INFINITY, INFINITY)  Codomain: (0, 2) -|(x)->Float|
+escape|Class:Regexp Description:Escapes any characters that would have special meaning in a regularexpression. Returns a new escaped string, or self if no characters areescaped.  For any string,Regexp.new(Regexp.escape(str))=~str will betrue. -|(str)->string|
+euid=|Class:Process Description:Sets the effective user ID for this process. Not available on allplatforms. -|user->|
+exception|Class:Exception Description:With no argument, or if the argument is the same as the receiver, returnthe receiver. Otherwise, create a new exception object of the same class asthe receiver, but with a message equal to string.to_str. -|(string)->an_exception or exc|
+exclusive|Class:Thread Description:Wraps a block in Thread.critical, restoring the original value upon exitfrom the critical section, and returns the value of the block. -|->obj|
+exec|||
+executable?|||
+executable_real?|||
+exist?|||
+exists?|||
+exit|||
+exit!|||
+exp|Class:Math Description:Returns e**x.  Domain: (-INFINITY, INFINITY)  Codomain: (0, INFINITY) -|(x)->Float|
+expand_path|Class:File Description:Converts a pathname to an absolute pathname. Relative paths are referencedfrom the current working directory of the process unlessdir_string is given, in which case it will be used as the startingpoint. The given pathname may start with a "~", which expandsto the process owner's home directory (the environment variableHOME must be set correctly). "~user"expands to the named user's home directory. -|(file_name [, dir_string] )->abs_file_name|
+extname|Class:File Description:Returns the extension (the portion of file name in pathstarting from the last period).  If path is a dotfile, or starts with a period, then thestarting dot is not dealt with the start of the extension.  An empty string will also be returned when the period is the last characterin path. -|(path)->string|
+fetch|||
+file?|||
+find|||
+fnmatch|Class:File Description:Returns true if path matches against pattern The patternis not a regular expression; instead it follows rules similar to shellfilename globbing. It may contain the following metacharacters:  Matches any file. Can be restricted by other values in the glob.* will match all files; c* will match all filesbeginning with c; *c will match all files endingwith c; and *c* will match all files that havec in them (including at the beginning or end). Equivalent to/ .* /x in regexp.  Matches directories recursively or files expansively.  Matches any one character. Equivalent to /.{1}/ in regexp.  Matches any one character in set. Behaves exactly likecharacter sets in Regexp, including set negation([^a-z]).  Escapes the next metacharacter.  Matches pattern a and pattern b if File::FNM_EXTGLOB flag isenabled. Behaves like a Regexp union((?:ab)).  flags is a bitwise OR of the FNM_xxx parameters. Thesame glob pattern and flags are used by Dir::glob. -|( pattern, path, [flags] )->(true or false)|
+fnmatch?|Class:File Description:Returns true if path matches against pattern The patternis not a regular expression; instead it follows rules similar to shellfilename globbing. It may contain the following metacharacters:  Matches any file. Can be restricted by other values in the glob.* will match all files; c* will match all filesbeginning with c; *c will match all files endingwith c; and *c* will match all files that havec in them (including at the beginning or end). Equivalent to/ .* /x in regexp.  Matches directories recursively or files expansively.  Matches any one character. Equivalent to /.{1}/ in regexp.  Matches any one character in set. Behaves exactly likecharacter sets in Regexp, including set negation([^a-z]).  Escapes the next metacharacter.  Matches pattern a and pattern b if File::FNM_EXTGLOB flag isenabled. Behaves like a Regexp union((?:ab)).  flags is a bitwise OR of the FNM_xxx parameters. Thesame glob pattern and flags are used by Dir::glob. -|( pattern, path, [flags] )->(true or false)|
+for_fd|Class:IO Description:Synonym for IO.new. -|(fd, mode [, opt])->io|
+foreach|||
+fork  [|||
+fork|Class:Thread Description:Basically the same as ::new.However, if class Thread is subclassed, thencalling start in that subclass will not invoke the subclass'sinitialize method. -|([args]*) {args block }->thread|
+frexp|Class:Math Description:Returns a two-element array containing the normalized fraction (a Float) and exponent (a Fixnum) of x. -|(x)->[fraction, exponent]|
+from_name|||
+ftype|||
+gamma|Class:Math Description:Calculates the gamma function of x.  Note that gamma(n) is same as fact(n-1) for integer n &gt; 0. Howevergamma(n) returns float and can be an approximation. -|(x)->Float|
+start|||
+gid|||
+getpgid|Class:Process Description:Returns the process group ID for the given process id. Not available on allplatforms. -|(pid)->integer|
+getpgrp|Class:Process Description:Returns the process group ID for this process. Not available on allplatforms. -|()->integer|
+getpriority|Class:Process Description:Gets the scheduling priority for specified process, process group, or user.kind indicates the kind of entity to find: one ofProcess::PRIO_PGRP, Process::PRIO_USER, orProcess::PRIO_PROCESS. integer is an id indicatingthe particular process, process group, or user (an id of 0 meanscurrent). Lower priorities are more favorable for scheduling. Notavailable on all platforms. -|(kind, integer)->fixnum|
+getrlimit|Class:Process Description:Gets the resource limit of the process. cur_limit means current(soft) limit and max_limit means maximum (hard) limit.  resource indicates the kind of resource to limit. It is specifiedas a symbol such as :CORE, a string such as"CORE" or a constant such asProcess::RLIMIT_CORE. See ::setrlimit for details.  cur_limit and max_limit may beProcess::RLIM_INFINITY, Process::RLIM_SAVED_MAXor Process::RLIM_SAVED_CUR. See ::setrlimit and the systemgetrlimit(2) manual for details. -|(resource)->[cur_limit, max_limit]|
+getsid|Class:Process Description:Returns the session ID for for the given process id. If not give, returncurrent process sid. Not available on all platforms. -|()->integer|
+uid|||
+getwd|Class:Dir Description:Returns the path to the current working directory of this process as astring. -|()->string|
+gid=|Class:Process Description:Sets the group ID for this process. -|fixnum->fixnum|
+glob|Class:Dir Description:Returns the filenames found by expanding pattern which is anArray of the patterns or the pattern String,either as an array or as parameters to the block. Note that thispattern is not a regexp (it's closer to a shell glob). SeeFile::fnmatch for the meaning of the flags parameter.Note that case sensitivity depends on your system (soFile::FNM_CASEFOLD is ignored), as does the order in which theresults are returned.  Matches any file. Can be restricted by other values in the glob.* will match all files; c* will match all filesbeginning with c; *c will match all files endingwith c; and *c* will match all files that havec in them (including at the beginning or end). Equivalent to/ .* /x in regexp. Note, this will not match Unix-like hiddenfiles (dotfiles). In order to include those in the match results, you mustuse something like "{*,.*}".  Matches directories recursively.  Matches any one character. Equivalent to /.{1}/ in regexp.  Matches any one character in set. Behaves exactly likecharacter sets in Regexp, including set negation([^a-z]).  Matches either literal p or literal q. Matchingliterals may be more than one character in length. More than two literalsmay be specified. Equivalent to pattern alternation in regexp.  Escapes the next metacharacter. Note that this means you cannot usebackslash in windows as part of a glob, i.e. Dir["c:\foo*"]will not work, use Dir["c:/foo*"] instead. -|( pattern, [flags] )->array|
+gm|Class:Time Description:Creates a Time object based on given values,interpreted as UTC (GMT). The year must be specified. Other values defaultto the minimum value for that field (and may be nil oromitted). Months may be specified by numbers from 1 to 12, or by thethree-letter English month names. Hours are specified on a 24-hour clock(0..23). Raises an ArgumentError if anyvalues are out of range. Will also accept ten arguments in the order outputby #to_a.  sec_with_frac and usec_with_frac can have afractional part. -|(year)->time|
+grant_privilege|||
+groups|Class:Process Description:Get an Array of the gids of groups in the supplemental groupaccess list for this process. -|()->array|
+groups=|Class:Process Description:Set the supplemental group access list to the given Array ofgroup IDs. -|array->array|
+grpowned?|||
+handle_interrupt|Class:Thread Description:Changes asynchronous interrupt timing.  interrupt means asynchronous event and corresponding procedure by#raise, #kill, signal trap (not supported yet)and main thread termination (if main thread terminates, then all otherthread will be killed).  The given hash has pairs like ExceptionClass =&gt;:TimingSymbol. Where the ExceptionClass is the interrupt handled bythe given block. The TimingSymbol can be one of the following symbols:  Invoke interrupts immediately.  Invoke interrupts while BlockingOperation.  Never invoke all interrupts.  BlockingOperation means that the operation will block the callingthread, such as read and write.  On CRuby implementation,BlockingOperation is any operation executed without GVL.  Masked asynchronous interrupts are delayed until they are enabled. Thismethod is similar to sigprocmask(3).  Asynchronous interrupts are difficult to use.  If you need to communicate between threads, please consider to use anotherway such as Queue.  Or use them with deep understanding about this method.  In this example, we can guard from #raise exceptions.  Using the :never TimingSymbol the RuntimeError exception will always be ignoredin the first block of the main thread. In the second ::handle_interrupt blockwe can purposefully handle RuntimeErrorexceptions.  While we are ignoring the RuntimeErrorexception, it's safe to write our resource allocation code. Then, theensure block is where we can safely deallocate your resources.  In the next example, we will guard from the TimeoutError exception. Thiswill help prevent from leaking resources when TimeoutError exceptions occurduring normal ensure clause. For this example we use the help of thestandard library Timeout, from lib/timeout.rb  In the first part of the timeout block, we can rely onTimeoutError being ignored. Then in the TimeoutError =&gt;:on_blocking block, any operation that will block the calling threadis susceptible to a TimeoutError exception being raised.  It's possible to stack multiple levels of ::handle_interrupt blocksin order to control more than one ExceptionClass and TimingSymbol at atime.  All exceptions inherited from the ExceptionClass parameter will beconsidered. -|(hash) { ... }->result of the block|
+has_key?|||
+has_value?|||
+home|Class:Dir Description:Returns the home directory of the current user or the named user if given. -|()->"/home/me"|
+hypot|Class:Math Description:Returns sqrt(x**2 + y**2), the hypotenuse of a right-angled triangle withsides x and y. -|(x, y)->Float|
+identical?|||
+include?|||
+index|||
+initgroups|Class:Process Description:Initializes the supplemental group access list by reading the system groupdatabase and using all groups of which the given user is a member. Thegroup with the specified gid is also added to the list. Returnsthe resulting Array of the gids of all the groups in thesupplementary group access list. Not available on all platforms. -|(username, gid)->array|
+inspect|||
+invert|||
+issetugid|Class:Process::Sys Description:Returns true if the process was created as a result of anexecve(2) system call which had either of the setuid or setgid bits set(and extra privileges were given as a result) or if it has changed any ofits real, effective or saved user or group IDs since it began execution. -|()->true or false|
+join|||
+keep_if|||
+key|||
+key?|||
+keys|||
+kill|Class:Process Description:Sends the given signal to the specified process id(s) if pid ispositive. If pid is zero signal is sent to all processeswhose group ID is equal to the group ID of the process. signal maybe an integer signal number or a POSIX signal name (either with or withouta SIG prefix). If signal is negative (or starts witha minus sign), kills process groups instead of processes. Not all signalsare available on all platforms.  produces:  If signal is an integer but wrong for signal,Errno::EINVAL or RangeError will be raised.Otherwise unless signal is a String or aSymbol, and a known signal name, ArgumentErrorwill be raised.  Also, Errno::ESRCH or RangeError for invalidpid, Errno::EPERM when failed because of noprivilege, will be raised.  In these cases, signals may have been sent topreceding processes. -|(signal, pid, ...)->fixnum|
+last_match|Class:Regexp Description:The first form returns the MatchData objectgenerated by the last successful pattern match.  Equivalent to reading thespecial global variable $~ (see Special global variables in Regexp for details).  The second form returns the nth field in this MatchData object. n can be a string orsymbol to reference a named capture.  Note that the ::last_match islocal to the thread and method scope of the method that did the patternmatch. -|()->matchdata|
+lchmod|Class:File Description:Equivalent to File::chmod, but does not follow symbolic links(so it will change the permissions associated with the link, not the filereferenced by the link). Often not available. -|(mode_int, file_name, ...)->integer|
+lchown|Class:File Description:Equivalent to File::chown, but does not follow symbolic links(so it will change the owner associated with the link, not the filereferenced by the link). Often not available. Returns number of files inthe argument list. -|(owner_int, group_int, file_name,..)->integer|
+ldexp|Class:Math Description:Returns the value of fraction*(2**exponent). -|(fraction, exponent)->float|
+length|||
+lgamma|Class:Math Description:Calculates the logarithmic gamma of x and the sign of gamma ofx.  ::lgamma is same as  but avoid overflow by ::gamma forlarge x. -|(x)->[float, -1 or 1]|
+link|Class:File Description:Creates a new name for an existing file using a hard link. Will notoverwrite new_name if it already exists (raising a subclass ofSystemCallError). Not available on all platforms. -|(old_name, new_name)->0|
+list|||
+load|||
+local|Class:Time Description:Same as ::gm, but interprets the valuesin the local time zone. -|(year)->time|
+locale_charmap|Class:Encoding Description:Returns the locale charmap name. It returns nil if no appropriateinformation.  The result is highly platform dependent. So ::find may cause an error. If youneed some encoding object even for unknown locale, ::find("locale") can be used. -|()->string|
+log|Class:Math Description:Returns the logarithm of x. If additional second argument isgiven, it will be the base of logarithm. Otherwise it is e(for the natural logarithm).  Domain: (0, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+log10|Class:Math Description:Returns the base 10 logarithm of x.  Domain: (0, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+log2|Class:Math Description:Returns the base 2 logarithm of x.  Domain: (0, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+lstat|Class:File Description:Same as IO#stat, but does not follow the last symbolic link.Instead, reports on the link itself. -|()->stat|
+main|Class:Thread Description:Returns the main thread. -|()->thread|
+malloc_allocated_size|Class:GC Description:Returns the size of memory allocated by malloc().  Only available if ruby was built with CALC_EXACT_MALLOC_SIZE. -|()->Integer|
+malloc_allocations|Class:GC Description:Returns the number of malloc() allocations.  Only available if ruby was built with CALC_EXACT_MALLOC_SIZE. -|()->Integer|
+maxgroups|Class:Process Description:Returns the maximum number of gids allowed in the supplemental group accesslist. -|()->fixnum|
+maxgroups=|Class:Process Description:Sets the maximum number of gids allowed in the supplemental group accesslist. -|fixnum->fixnum|
+member?|||
+mkdir|Class:Dir Description:Makes a new directory named by string, with permissions specifiedby the optional parameter anInteger. The permissions may bemodified by the value of File::umask, and are ignored on NT.Raises a SystemCallError if the directory cannot be created.See also the discussion of permissions in the class documentation forFile. -|( string [, integer] )->0|
+mktime|Class:Time Description:Same as ::gm, but interprets the valuesin the local time zone. -|(year)->time|
+mtime|||
+name_list|Class:Encoding Description:Returns the list of available encoding names. -|()->["enc1", "enc2", ...]|
+nesting|Class:Module Description:Returns the list of Modules nested at the point of call. -|()->array|
+new|||
+new_seed)|||
+new_seed|Class:Random Description:Returns an arbitrary seed value. This is used by ::new when no seed value is specifiedas an argument. -|()->integer|
+now|Class:Time Description:Alias for ::new. Returns a Time object initialized to the current system time. -|()->****|
+of|Class:RubyVM::InstructionSequence Description:Returns the instruction sequence containing the given proc or method.  For example, using irb:  Using ::compile_file: -|(p1)->****|
+open|||
+owned?|||
+pass|Class:Thread Description:Give the thread scheduler a hint to pass execution to another thread. Arunning thread may or may not switch, it depends on OS and processor. -|()->nil|
+path|||
+pending_interrupt?|Class:Thread Description:Returns whether or not the asynchronous queue is empty for the targetthread.  If error is given, then check only for error typedeferred events.  See ::pending_interrupt?for more information. -|(error = nil)->true/false|
+pid|||
+pipe|Class:IO Description:Creates a pair of pipe endpoints (connected to each other) and returns themas a two-element array of IO objects: [read_io, write_io ].  If a block is given, the block is called and returns the value of theblock. read_io and write_io are sent to the block asarguments. If read_io and write_io are not closed when the block exits,they are closed. i.e. closing read_io and/or write_io doesn't cause anerror.  Not available on all platforms.  If an encoding (encoding name or encoding object) is specified as anoptional argument, read string from pipe is tagged with the encodingspecified. If the argument is a colon separated two encoding names "A:B",the read string is converted from encoding A (external encoding) toencoding B (internal encoding), then tagged with B. If two optionalarguments are specified, those must be encoding objects or encoding names,and the first one is the external encoding, and the second one is theinternal encoding. If the external encoding and the internal encoding isspecified, optional hash argument specify the conversion option.  In the example below, the two processes close the ends of the pipe thatthey are not using. This is not just a cosmetic nicety. The read end of apipe will not generate an end of file condition if there are any writerswith the pipe still open. In the case of the parent process, therd.read will never return if it does not first issue awr.close.  produces: -|()->[read_io, write_io]|
+pipe?|||
+polar|||
+popen|Class:IO Description:Runs the specified command as a subprocess; the subprocess's standard inputand output will be connected to the returned IO object.  The PID of the started process can be obtained by #pid method.  cmd is a string or an array as follows.  If cmd is a String "-", then a newinstance of Ruby is started as the subprocess.  If cmd is an Array of String, then itwill be used as the subprocess's argv bypassing a shell. Thearray can contains a hash at first for environments and a hash at last foroptions similar to spawn.  The default mode for the new file object is "r", but mode may beset to any of the modes listed in the description for class IO. The last argument opt qualifiesmode.  Raises exceptions which IO.pipe and Kernel.spawnraise.  If a block is given, Ruby will run the command as a child connected to Rubywith a pipe. Ruby's end of the pipe will be passed as a parameter to theblock. At the end of block, Ruby close the pipe and sets $?.In this case IO.popen returns the value of the block.  If a block is given with a cmd of "-", the block willbe run in two separate processes: once in the parent, and once in a child.The parent process will be passed the pipe object as a parameter to theblock, the child version of the block will be passed nil, andthe child's standard in and standard out will be connected to the parentthrough the pipe. Not available on all platforms.  produces: -|([env,] cmd, mode="r" [, opt])->io|
+ppid|Class:Process Description:Returns the process id of the parent of this process. Returns untrustworthyvalue on Win32/64. Not available on all platforms.  produces: -|()->fixnum|
+pwd|Class:Dir Description:Returns the path to the current working directory of this process as astring. -|()->string|
+quote|Class:Regexp Description:Escapes any characters that would have special meaning in a regularexpression. Returns a new escaped string, or self if no characters areescaped.  For any string,Regexp.new(Regexp.escape(str))=~str will betrue. -|(str)->string|
+rand|||
+rassoc|||
+raw_data|Class:GC::Profiler Description:Returns an Array of individual raw profile dataHashes ordered from earliest to latest by :GC_INVOKE_TIME.  For example:  The keys mean:  Time elapsed in seconds for this GC run  Time elapsed in seconds from startup to when theGC was invoked  Total bytes of heap used  Total size of heap in bytes  Total number of objects  Returns true if the GC is in markphase  If ruby was built with GC_PROFILE_MORE_DETAIL, you will alsohave access to the following hash keys: -|()->[Hash, ...]|
+re_exchange|||
+re_exchangeable?|||
+read|||
+readable?|||
+readable_real?|||
+readlines|||
+readlink|Class:File Description:Returns the name of the file referenced by the given link. Not available onall platforms. -|(link_name)->file_name|
+realdirpath|Class:File Description:Returns the real (absolute) pathname of pathname in the actualfilesystem. The real pathname doesn't contain symlinks or useless dots.  If dir_string is given, it is used as a base directory forinterpreting relative pathname instead of the current directory.  The last component of the real pathname can be nonexistent. -|(pathname [, dir_string])->real_pathname|
+realpath|Class:File Description:Returns the real (absolute) pathname of pathname in the actualfilesystem not containing symlinks or useless dots.  If dir_string is given, it is used as a base directory forinterpreting relative pathname instead of the current directory.  All components of the pathname must exist when this method is called. -|(pathname [, dir_string])->real_pathname|
+rect|||
+rehash|||
+reject|||
+reject!|||
+rename|Class:File Description:Renames the given file to the new name. Raises aSystemCallError if the file cannot be renamed. -|(old_name, new_name)->0|
+replace|||
+report|Class:GC::Profiler Description:Writes the ::result to$stdout or the given IO object. -|()->|
+restore|Class:Marshal Description:Returns the result of converting the serialized data in source into a Rubyobject (possibly with associated subordinate objects). source may be eitheran instance of IO or an object that responds toto_str. If proc is specified, it will be passed each object as it isdeserialized.  Never pass untrusted data (including user supplied input) to this method.Please see the overview for further details. -|( source [, proc] )->obj|
+result|||
+rmdir|Class:Dir Description:Deletes the named directory. Raises a subclass ofSystemCallError if the directory isn't empty. -|( string )->0|
+search_convpath|Class:Encoding::Converter Description:Returns a conversion path. -|(source_encoding, destination_encoding)->ary|
+select|||
+select!|||
+setegid|Class:Process::Sys Description:Set the effective group ID of the calling process to group.  Notavailable on all platforms. -|(group)->nil|
+seteuid|Class:Process::Sys Description:Set the effective user ID of the calling process to user.  Notavailable on all platforms. -|(user)->nil|
+setgid|Class:Process::Sys Description:Set the group ID of the current process to group. Not available onall platforms. -|(group)->nil|
+setgid?|||
+setpgid|Class:Process Description:Sets the process group ID of pid (0 indicates this process) tointeger. Not available on all platforms. -|(pid, integer)->0|
+setpgrp|Class:Process Description:Equivalent to setpgid(0,0). Not available on all platforms. -|()->0|
+setpriority|Class:Process Description:See Process#getpriority. -|(kind, integer, priority)->0|
+setregid|Class:Process::Sys Description:Sets the (group) real and/or effective group IDs of the current process torid and eid, respectively. A value of -1 foreither means to leave that ID unchanged. Not available on all platforms. -|(rid, eid)->nil|
+setresgid|Class:Process::Sys Description:Sets the (group) real, effective, and saved user IDs of the current processto rid, eid, and sid respectively. A value of-1 for any value means to leave that ID unchanged. Notavailable on all platforms. -|(rid, eid, sid)->nil|
+setresuid|Class:Process::Sys Description:Sets the (user) real, effective, and saved user IDs of the current processto rid, eid, and sid respectively. A value of-1 for any value means to leave that ID unchanged. Notavailable on all platforms. -|(rid, eid, sid)->nil|
+setreuid|Class:Process::Sys Description:Sets the (user) real and/or effective user IDs of the current process torid and eid, respectively. A value of -1 foreither means to leave that ID unchanged. Not available on all platforms. -|(rid, eid)->nil|
+setrgid|Class:Process::Sys Description:Set the real group ID of the calling process to group. Notavailable on all platforms. -|(group)->nil|
+setrlimit|Class:Process Description:Sets the resource limit of the process. cur_limit means current(soft) limit and max_limit means maximum (hard) limit.  If max_limit is not given, cur_limit is used.  resource indicates the kind of resource to limit. It should be asymbol such as :CORE, a string such as"CORE" or a constant such asProcess::RLIMIT_CORE. The available resources are OSdependent. Ruby may support following resources.  total available memory (bytes) (SUSv3, NetBSD, FreeBSD, OpenBSD but4.4BSD-Lite)  core size (bytes) (SUSv3)  CPU time (seconds) (SUSv3)  data segment (bytes) (SUSv3)  file size (bytes) (SUSv3)  total size for mlock(2) (bytes) (4.4BSD, GNU/Linux)  allocation for POSIX message queues (bytes) (GNU/Linux)  ceiling on process's nice(2) value (number) (GNU/Linux)  file descriptors (number) (SUSv3)  number of processes for the user (number) (4.4BSD, GNU/Linux)  resident memory size (bytes) (4.2BSD, GNU/Linux)  ceiling on the process's real-time priority (number) (GNU/Linux)  CPU time for real-time process (us) (GNU/Linux)  all socket buffers (bytes) (NetBSD, FreeBSD)  number of queued signals allowed (signals) (GNU/Linux)  stack size (bytes) (SUSv3)  cur_limit and max_limit may be :INFINITY,"INFINITY" or Process::RLIM_INFINITY,which means that the resource is not limited. They may beProcess::RLIM_SAVED_MAX, Process::RLIM_SAVED_CURand corresponding symbols and strings too. See system setrlimit(2) manualfor details.  The following example raises the soft limit of core size to the hard limitto try to make core dump possible. -|(resource, cur_limit, max_limit)->nil|
+setruid|Class:Process::Sys Description:Set the real user ID of the calling process to user. Not availableon all platforms. -|(user)->nil|
+setsid|Class:Process Description:Establishes this process as a new session and process group leader, with nocontrolling tty. Returns the session id. Not available on all platforms. -|()->fixnum|
+setuid|Class:Process::Sys Description:Set the user ID of the current process to user. Not available onall platforms. -|(user)->nil|
+setuid?|||
+shift|||
+sid_available?|||
+signame|Class:Signal Description:convert signal number to signal name  produces: -|(signo)->string|
+sin|Class:Math Description:Computes the sine of x (expressed in radians). Returns a Float in the range -1.0..1.0.  Domain: (-INFINITY, INFINITY)  Codomain: [-1, 1] -|(x)->Float|
+sinh|Class:Math Description:Computes the hyperbolic sine of x (expressed in radians).  Domain: (-INFINITY, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+size|||
+size?|||
+socket?|||
+spawn|||
+split|||
+sqrt|Class:Math Description:Returns the non-negative square root of x.  Domain: [0, INFINITY)  Codomain:[0, INFINITY) -|(x)->Float|
+stat|||
+sticky?|||
+stop|Class:Thread Description:Stops execution of the current thread, putting it into a "sleep" state, andschedules execution of another thread. -|()->nil|
+store|||
+stress|Class:GC Description:Returns current status of GC stress mode. -|()->fixnum, true or false|
+stress =|Class:GC Description:Updates the GC stress mode.  When stress mode is enabled, the GC is invoked atevery GC opportunity: all memory and objectallocations.  Enabling stress mode will degrade performance, it is only for debugging. -|bool->bool|
+switch|||
+symlink|Class:File Description:Creates a symbolic link called new_name for the existing fileold_name. Raises a NotImplemented exception onplatforms that do not support symbolic links. -|(old_name, new_name)->0|
+symlink?|||
+sysopen|Class:IO Description:Opens the given path, returning the underlying file descriptor as aFixnum. -|(path, [mode, [perm]])->fixnum|
+tan|Class:Math Description:Computes the tangent of x (expressed in radians).  Domain: (-INFINITY, INFINITY)  Codomain: (-INFINITY, INFINITY) -|(x)->Float|
+tanh|Class:Math Description:Computes the hyperbolic tangent of x (expressed in radians).  Domain: (-INFINITY, INFINITY)  Codomain: (-1, 1) -|(x)->Float|
+times|||
+to_a|||
+to_hash|||
+to_s|||
+total_time|Class:GC::Profiler Description:The total time used for garbage collection in seconds -|()->float|
+trace|Class:TracePoint Description:A convenience method for ::new,that activates the trace automatically. -|(*events) { obj block }->obj|
+trap|||
+truncate|||
+try_convert|||
+uid=|Class:Process Description:Sets the (user) user ID for this process. Not available on all platforms. -|user->numeric|
+umask|Class:File Description:Returns the current umask value for this process. If the optional argumentis given, set the umask to that value and return the previous value. Umaskvalues are subtracted from the default permissions, so a umask of0222 would make a file read-only for everyone. -|()->integer|
+undefine_finalizer|Class:ObjectSpace Description:Removes all finalizers for obj. -|(obj)->|
+union|Class:Regexp Description:Return a Regexp object that is the union of the givenpatterns, i.e., will match any of its parts. The patternscan be Regexp objects, in which case theiroptions will be preserved, or Strings. If no patterns are given, returns/(?!)/. The behavior is unspecified if any givenpattern contains capture. -|(pat1, pat2, ...)->new_regexp|
+unlink|||
+update|||
+gmtime|||
+utime|Class:File Description:Sets the access and modification times of each named file to the first twoarguments. Returns the number of file names in the argument list. -|(atime, mtime, file_name,...)->integer|
+value?|||
+values|||
+values_at|||
+wait|Class:Process Description:Waits for a child process to exit, returns its process id, and sets$? to a Process::Status object containinginformation on that process. Which child it waits on depends on the valueof pid:  Waits for the child whose process ID equals pid.  Waits for any child whose process group ID equals that of the callingprocess.  Waits for any child process (the default if no pid is given).  Waits for any child whose process group ID equals the absolute value ofpid.  The flags argument may be a logical or of the flag valuesProcess::WNOHANG (do not block if no child available) orProcess::WUNTRACED (return stopped children that haven't beenreported). Not all flags are available on all platforms, but a flag valueof zero will work on all platforms.  Calling this method raises a SystemCallError if there are no childprocesses. Not available on all platforms. -|()->fixnum|
+wait2|Class:Process Description:Waits for a child process to exit (see ::waitpid for exact semantics) andreturns an array containing the process id and the exit status (aProcess::Status object) of that child. Raises a SystemCallError if there are no childprocesses. -|(pid=-1, flags=0)->[pid, status]|
+waitall|Class:Process Description:Waits for all children, returning an array of pid/statuspairs (where status is a Process::Status object).  produces: -|()->[ [pid1,status1], ...]|
+waitpid|Class:Process Description:Waits for a child process to exit, returns its process id, and sets$? to a Process::Status object containinginformation on that process. Which child it waits on depends on the valueof pid:  Waits for the child whose process ID equals pid.  Waits for any child whose process group ID equals that of the callingprocess.  Waits for any child process (the default if no pid is given).  Waits for any child whose process group ID equals the absolute value ofpid.  The flags argument may be a logical or of the flag valuesProcess::WNOHANG (do not block if no child available) orProcess::WUNTRACED (return stopped children that haven't beenreported). Not all flags are available on all platforms, but a flag valueof zero will work on all platforms.  Calling this method raises a SystemCallError if there are no childprocesses. Not available on all platforms. -|(pid=-1, flags=0)->fixnum|
+waitpid2|Class:Process Description:Waits for a child process to exit (see ::waitpid for exact semantics) andreturns an array containing the process id and the exit status (aProcess::Status object) of that child. Raises a SystemCallError if there are no childprocesses. -|(pid=-1, flags=0)->[pid, status]|
+world_readable?|||
+world_writable?|||
+writable?|||
+writable_real?|||
+write|||
+yield|Class:Fiber Description:Yields control back to the context that resumed the fiber, passing alongany arguments that were passed to it. The fiber will resume processing atthis point when resume is called next. Any arguments passed tothe next resume will be the value that thisFiber.yield expression evaluates to. -|(args, ...)->obj|
+zero?|||
+Array|Class:Kernel Description:Returns arg as an Array.  First tries to call Array#to_aryon arg, then Array#to_a. -|(arg)->array|
+Complex|Class:Kernel Description:Returns x+i*y;  Syntax of string form:  See String#to_c. -|(x[, y])->numeric|
+Float|Class:Kernel Description:Returns arg converted to a float. Numeric types are converted directly, the rest areconverted using arg.to_f. As of Ruby 1.8, convertingnil generates a TypeError. -|(arg)->float|
+Hash|Class:Kernel Description:Converts arg to a Hash by callingarg.to_hash. Returns an empty Hash whenarg is nil or []. -|(arg)->hash|
+Integer|Class:Kernel Description:Converts arg to a Fixnum or Bignum. Numeric types are converted directly (with floatingpoint numbers being truncated).    base (0, or between 2 and 36)is a base for integer string representation.  If arg is aString, when base is omitted or equals to zero, radixindicators (0, 0b, and 0x) arehonored. In any case, strings should be strictly conformed to numericrepresentation. This behavior is different from that ofString#to_i.  Non string values will be converted usingto_int, and to_i. -|(arg,base=0)->integer|
+Rational|Class:Kernel Description:Returns x/y;  Syntax of string form:  See String#to_r. -|(x[, y])->numeric|
+String|Class:Kernel Description:Converts arg to a String by calling itsto_s method. -|(arg)->string|
+abs|||
+abs2|||
+add|Class:ThreadGroup Description:Adds the given thread to this group, removing it from anyother group to which it may have previously been a member.  This will produce: -|(thread)->thgrp|
+add_trace_func|Class:Thread Description:Adds proc as a handler for tracing.  See #set_trace_func andKernel#set_trace_func. -|(proc)->proc|
+advise|Class:IO Description:advice is one of the following symbols:  The semantics of a piece of advice are platform-dependent. See man 2posix_fadvise for details.  exceptions are also possible. -|(advice, offset=0, len=0)->nil|
+alias_method|Class:Module Description:Makes new_name a new copy of the method old_name. Thiscan be used to retain access to methods that are overridden.  produces: -|(new_name, old_name)->self|
+alive?|||
+all? |Class:Enumerable Description:Passes each element of the collection to the given block. The methodreturns true if the block never returns false ornil. If the block is not given, Ruby adds an implicit block of{ obj obj } which will cause all? to return truewhen none of the collection members are false ornil. -|->true or false|
+allocate|Class:Class Description:Allocates space for a new object of class's class and does notcall initialize on the new instance. The returned object must be aninstance of class. -|()->obj|
+ancestors|Class:Module Description:Returns a list of modules included in mod (including moditself). -|()->array|
+angle|||
+any? |Class:Enumerable Description:Passes each element of the collection to the given block. The methodreturns true if the block ever returns a value other thanfalse or nil. If the block is not given, Rubyadds an implicit block of { obj obj } that will cause any? to return trueif at least one of the collection members is not false ornil. -|->true or false|
+append_features|Class:Module Description:When this module is included in another, Ruby callsappend_features in this module, passing it the receivingmodule in mod. Ruby's default implementation is to add theconstants, methods, and module variables of this module to mod ifthis module has not already been added to mod or one of itsancestors. See also Module#include. -|(mod)->mod|
+arg|||
+args|Class:NoMethodError Description:Return the arguments passed in as the third parameter to the constructor. -|()->obj|
+argv|Class:ARGF Description:Returns the ARGV array, which contains the arguments passed toyour script, one per element.  For example: -|()->ARGV|
+arity|||
+ascii_compatible?|Class:Encoding Description:Returns whether ASCII-compatible or not. -|()->true or false|
+ascii_only?|Class:String Description:Returns true for a string which has only ASCII characters. -|()->true or false|
+asctime|Class:Time Description:Returns a canonical string representation of time. -|()->string|
+at_exit|Class:Kernel Description:Converts block to a Proc object (and therefore bindsit at the point of call) and registers it for execution when the programexits. If multiple handlers are registered, they are executed in reverseorder of registration.  produces: -|->proc|
+attr|Class:Module Description: -|(*args)->****|
+attr_accessor|Class:Module Description:Defines a named attribute for this module, where the name issymbol.id2name, creating an instance variable(@name) and a corresponding access method to read it. Alsocreates a method called name= to set the attribute. String arguments are converted to symbols. -|(symbol, ...)->nil|
+attr_reader|Class:Module Description:Creates instance variables and corresponding methods that return the valueof each instance variable. Equivalent to calling"attr:name" on each name in turn. String arguments are converted to symbols. -|(symbol, ...)->nil|
+attr_writer|Class:Module Description:Creates an accessor method to allow assignment to the attributesymbol.id2name. Stringarguments are converted to symbols. -|(symbol, ...)->nil|
+autoclose =|Class:IO Description:Sets auto-close flag. -|bool->true or false|
+autoclose?|Class:IO Description:Returns true if the underlying file descriptor of ioswill be closed automatically at its finalization, otherwisefalse. -|()->true or false|
+autoload|||
+autoload?|||
+b|Class:String Description:Returns a copied string whose encoding is ASCII-8BIT. -|()->str|
+backtrace|||
+backtrace_locations|Class:Thread Description:Returns the execution stack for the target thread-an array containingbacktrace location objects.  See Thread::Backtrace::Location formore information.  This method behaves similarly to Kernel#caller_locationsexcept it applies to a specific thread. -|(*args)->array or nil|
+base_label|||
+begin|||
+between?|Class:Comparable Description:Returns false if obj &lt;=&gt;min is less than zero or if anObject&lt;=&gt; max is greater than zero, trueotherwise. -|(min, max)->true or false|
+bind|Class:UnboundMethod Description:Bind umeth to obj. If Klass was the classfrom which umeth was obtained, obj.kind_of?(Klass)must be true.  produces: -|(obj)->method|
+binding|||
+binmode|||
+binmode?|||
+blksize|Class:File::Stat Description:Returns the native file system's block size. Will return nilon platforms that don't support this information. -|()->integer or nil|
+block_given?|Class:Kernel Description:Returns true if yield would execute a block inthe current context. The iterator? form is mildly deprecated. -|()->true or false|
+blocks|Class:File::Stat Description:Returns the number of native file system blocks allocated for this file, ornil if the operating system doesn't support this feature. -|()->integer or nil|
+bsearch|||
+bytes|||
+bytesize|Class:String Description:Returns the length of str in bytes. -|()->integer|
+byteslice|Class:String Description:Byte Reference-If passed a single Fixnum, returns a substringof one byte at that position. If passed two Fixnum objects,returns a substring starting at the offset given by the first, and a lengthgiven by the second. If given a Range, a substring containingbytes at offsets given by the range is returned. In all three cases, if anoffset is negative, it is counted from the end of str. Returnsnil if the initial offset falls outside the string, the lengthis negative, or the beginning of the range is greater than the end. Theencoding of the resulted string keeps original encoding. -|(fixnum)->new_str or nil|
+call|||
+callcc|Class:Kernel Description:Generates a Continuation object, which itpasses to the associated block. You need to require'continuation' before using this method. Performing acont.call will cause the callcc to return (as will fallingthrough the end of the block). The value returned by the callcc is the value of the block, orthe value passed to cont.call. See class Continuation for more details. Also see #throw for an alternative mechanismfor unwinding a call stack. -|->obj|
+caller|Class:Kernel Description:Returns the current execution stack-an array containing strings in the formfile:line or file:line: in `method'.  The optional start parameter determines the number of initialstack entries to omit from the top of the stack.  A second optional length parameter can be used to limit howmany entries are returned from the stack.  Returns nil if start is greater than the size ofcurrent execution stack.  Optionally you can pass a range, which will return an array containing theentries within the specified range. -|(start=1, length=nil)->array or nil|
+caller_locations|Class:Kernel Description:Returns the current execution stack-an array containing backtrace locationobjects.  See Thread::Backtrace::Location formore information.  The optional start parameter determines the number of initialstack entries to omit from the top of the stack.  A second optional length parameter can be used to limit howmany entries are returned from the stack.  Returns nil if start is greater than the size ofcurrent execution stack.  Optionally you can pass a range, which will return an array containing theentries within the specified range. -|(start=1, length=nil)->array or nil|
+capitalize|||
+capitalize!|Class:String Description:Modifies str by converting the first character to uppercase andthe remainder to lowercase. Returns nil if no changes aremade. Note: case conversion is effective only in ASCII region. -|()->str or nil|
+captures|Class:MatchData Description:Returns the array of captures; equivalent to mtch.to_a[1..-1]. -|()->array|
+casecmp|||
+casefold?|Class:Regexp Description:Returns the value of the case-insensitive flag. -|()->true or false|
+catch|Class:Kernel Description:catch executes its block. If a throw is executed,Ruby searches up its stack for a catch block with a tagcorresponding to the throw's tag. If found, thatblock is terminated, and catch returns the value given tothrow. If throw is not called, the blockterminates normally, and the value of catch is the value ofthe last expression evaluated. catch expressions may benested, and the throw call need not be in lexical scope.  produces:  when arg is given, catch yields it as is, or when noarg is given, catch assigns a new unique object tothrow.  this is useful for nested catch. arg can be an arbitrary object, not only Symbol. -|([arg]) {tag block }->obj|
+ceil|||
+center|Class:String Description:Centers str in width.  If width isgreater than the length of str, returns a new String of length width withstr centered and padded with padstr; otherwise,returns str. -|(width, padstr=' ')->new_str|
+chars|||
+chomp|||
+chomp!|Class:String Description:Modifies str in place as described for String#chomp,returning str, or nil if no modifications were made. -|(separator=$/)->str or nil|
+chop|||
+chop!|Class:String Description:Processes str as for String#chop, returningstr, or nil if str is the empty string.  Seealso String#chomp!. -|()->str or nil|
+chr|||
+chunk|||
+class|Class:Object Description:Returns the class of obj. This method must always be called withan explicit receiver, as class is also a reserved word inRuby. -|()->class|
+class_eval|Class:Module Description:Evaluates the string or block in the context of mod, except thatwhen a block is given, constant/class variable lookup is not affected. Thiscan be used to add methods to a class. module_eval returns theresult of evaluating its argument. The optional filename andlineno parameters set the text for error messages.  produces: -|(string [, filename [, lineno]])->obj|
+class_exec|Class:Module Description:Evaluates the given block in the context of the class/module. The methoddefined in the block will belong to the receiver. Any arguments passed tothe method will be passed to the block. This can be used if the block needsto access instance variables.  produces: -|(arg...) {var... block }->obj|
+class_variable_defined?|Class:Module Description:Returns true if the given class variable is defined inobj. String arguments are converted tosymbols. -|(symbol)->true or false|
+class_variable_get|Class:Module Description:Returns the value of the given class variable (or throws aNameError exception). The @@ part of the variablename should be included for regular class variables String arguments are converted to symbols. -|(symbol)->obj|
+class_variable_set|Class:Module Description:Sets the class variable names by symbol to object. If theclass variable name is passed as a string, that string is converted to asymbol. -|(symbol, obj)->obj|
+class_variables|Class:Module Description:Returns an array of the names of class variables in mod. Thisincludes the names of class variables in any included modules, unless theinherit parameter is set to false. -|(inherit=true)->array|
+clone|||
+close|||
+close_on_exec =|Class:IO Description:Sets a close-on-exec flag.  Ruby sets close-on-exec flags of all file descriptors by default since Ruby2.0.0. So you don't need to set by yourself. Also, unsetting aclose-on-exec flag can cause file descriptor leak if another thread usefork() and exec() (via system() method for example). If you really needsfile descriptor inheritance to child process, use spawn()'s argument suchas fd=&gt;fd. -|bool->true or false|
+close_on_exec?|Class:IO Description:Returns true if ios will be closed on exec. -|()->true or false|
+close_read|Class:IO Description:Closes the read end of a duplex I/O stream (i.e., one that contains both aread and a write stream, such as a pipe). Will raise anIOError if the stream is not duplexed.  produces: -|()->nil|
+close_write|Class:IO Description:Closes the write end of a duplex I/O stream (i.e., one that contains both aread and a write stream, such as a pipe). Will raise anIOError if the stream is not duplexed.  produces: -|()->nil|
+closed?|||
+codepoints|||
+coerce|||
+collect|||
+collect!|Class:Array Description:Invokes the given block once for each element of self,replacing the element with the value returned by the block.  See also Enumerable#collect.  If no block is given, an Enumerator isreturned instead. -|->ary|
+collect_concat|||
+combination|Class:Array Description:When invoked with a block, yields all combinations of length nof elements from the array and then returns the array itself.  The implementation makes no guarantees about the order in which thecombinations are yielded.  If no block is given, an Enumerator isreturned instead.  Examples: -|(n) { c block }->ary|
+compact|Class:Array Description:Returns a copy of self with all nil elementsremoved. -|()->new_ary|
+compact!|Class:Array Description:Removes nil elements from the array.  Returns nil if no changes were made, otherwise returns thearray. -|()->ary  or  nil|
+compare_by_identity|Class:Hash Description:Makes hsh compare its keys by their identity, i.e. it willconsider exact same objects as same keys. -|()->hsh|
+compare_by_identity?|Class:Hash Description:Returns true if hsh will compare its keys by theiridentity.  Also see Hash#compare_by_identity. -|()->true or false|
+concat|||
+conj|||
+conjugate|||
+const_defined?|Class:Module Description:Checks for a constant with the given name in mod Ifinherit is set, the lookup will also search the ancestors (andObject if mod is a Module.)  Returns whether or not a definition is found: -|(sym, inherit=true)->true or false|
+const_get|Class:Module Description:Checks for a constant with the given name in mod Ifinherit is set, the lookup will also search the ancestors (andObject if mod is a Module.)  The value of the constant is returned if a definition is found, otherwise aNameError is raised.  This method will recursively look up constant names if a namespaced classname is provided.  For example:  The inherit flag is respected on each lookup.  For example: -|(sym, inherit=true)->obj|
+const_missing|Class:Module Description:Invoked when a reference is made to an undefined constant in mod.It is passed a symbol for the undefined constant, and returns a value to beused for that constant. The following code is an example of the same:  In the next example when a reference is made to an undefined constant, itattempts to load a file whose name is the lowercase version of the constant(thus class Fred is assumed to be in filefred.rb).  If found, it returns the loaded class. It thereforeimplements an autoload feature similar to Kernel#autoload and #autoload. -|(sym)->obj|
+const_set|Class:Module Description:Sets the named constant to the given object, returning that object. Createsa new constant if no constant with the given name previously existed. -|(sym, obj)->obj|
+convert|Class:Encoding::Converter Description:Convert source_string and return destination_string.  source_string is assumed as a part of source. i.e.  :partial_input=&gt;trueis specified internally. finish method should be used last.  If a conversion error occur, Encoding::UndefinedConversionErroror Encoding::InvalidByteSequenceErroris raised. #convert doesn'tsupply methods to recover or restart from these exceptions. When you wantto handle these conversion errors, use #primitive_convert. -|(source_string)->destination_string|
+convpath|Class:Encoding::Converter Description:Returns the conversion path of ec.  The result is an array of conversions.  Each element of the array is a pair of encodings or a string. A pair meansan encoding conversion. A string means a decorator.  In the above example, [#&lt;Encoding:ISO-8859-1&gt;,#&lt;Encoding:UTF-8&gt;] means a converter from ISO-8859-1 to UTF-8."crlf_newline" means newline converter from LF to CRLF. -|()->ary|
+coredump?|Class:Process::Status Description:Returns true if stat generated a coredump when itterminated. Not available on all platforms. -|()->true or false|
+cover?|Class:Range Description:Returns true if obj is between the begin and endof the range.  This tests begin &lt;= obj &lt;= end when exclude_end? isfalse and begin &lt;= obj &lt; end when exclude_end? istrue. -|(obj)->true or false|
+crypt|Class:String Description:Applies a one-way cryptographic hash to str by invoking thestandard library function crypt(3) with the given salt string.While the format and the result are system and implementation dependent,using a salt matching the regular expression\A[a-zA-Z0-9./]{2} should be valid and safe on any platform,in which only the first two characters are significant.  This method is for use in system specific scripts, so if you want across-platform hash function consider using Digest or OpenSSL instead. -|(salt_str)->new_str|
+curry|Class:Proc Description:Returns a curried proc. If the optional arity argument is given,it determines the number of arguments. A curried proc receives somearguments. If a sufficient number of arguments are supplied, it passes thesupplied arguments to the original proc and returns the result. Otherwise,returns another curried proc that takes the rest of arguments. -|()->a_proc|
+cycle|||
+day|Class:Time Description:Returns the day of the month (1..n) for time. -|()->fixnum|
+default|Class:Hash Description:Returns the default value, the value that would be returned by hsh if key did not exist inhsh. See also Hash::new andHash#default=. -|(key=nil)->obj|
+default =|Class:Hash Description:Sets the default value, the value returned for a key that does not exist inthe hash. It is not possible to set the default to a Proc thatwill be executed on each key lookup. -|obj->obj|
+default_proc|Class:Hash Description:If Hash::new was invoked with a block, return that block,otherwise return nil. -|()->anObject|
+default_proc =|Class:Hash Description:Sets the default proc to be executed on each failed key lookup. -|proc_obj or nil->|
+define_method|Class:Module Description:Defines an instance method in the receiver. The method parametercan be a Proc, a Method or anUnboundMethod object. If a block is specified, it is used asthe method body. This block is evaluated using instance_eval,a point that is tricky to demonstrate because define_method isprivate. (This is why we resort to the send hack in thisexample.)  produces: -|(symbol, method)->new_method|
+define_singleton_method|Class:Object Description:Defines a singleton method in the receiver. The method parametercan be a Proc, a Method or anUnboundMethod object. If a block is specified, it is used asthe method body. -|(symbol, method)->new_method|
+defined_class|Class:TracePoint Description:Return class or module of the method being called.  If method is defined by a module, then that module is returned.  Note: defined_class returnssingleton class.  6th block parameter of Kernel#set_trace_func passesoriginal class of attached by singleton class.  This is a difference between Kernel#set_trace_func and TracePoint. -|()->****|
+delete!|Class:String Description:Performs a delete operation in place, returning str,or nil if str was not modified. -|([other_str]+)->str or nil|
+delete_at|Class:Array Description:Deletes the element at the specified index, returning thatelement, or nil if the index is out of range.  See also #slice! -|(index)->obj or nil|
+denominator|||
+destination_encoding|||
+destination_encoding_name|||
+detect|Class:Enumerable Description:Passes each entry in enum to block. Returns the first forwhich block is not false.  If no object matches, callsifnone and returns its result when it is specified, or returnsnil otherwise.  If no block is given, an enumerator is returned instead. -|(ifnone = nil) { obj block }->obj or nil|
+dev|Class:File::Stat Description:Returns an integer representing the device on which stat resides. -|()->fixnum|
+dev_major|Class:File::Stat Description:Returns the major part of File_Stat#dev or nil. -|()->fixnum|
+dev_minor|Class:File::Stat Description:Returns the minor part of File_Stat#dev or nil. -|()->fixnum|
+display|Class:Object Description:Prints obj on the given port (default $&gt;).Equivalent to:  For example:  produces: -|(port=$&gt;)->nil|
+div|||
+divmod|||
+downcase|||
+downcase!|Class:String Description:Downcases the contents of str, returning nil if nochanges were made. Note: case replacement is effective only in ASCIIregion. -|()->str or nil|
+downto|Class:Integer Description:Iterates block, passing decreasing values from int downto and including limit.  If no block is given, an enumerator is returned instead.  produces: -|(limit) {i block }->self|
+drop|||
+drop_while|||
+dst?|Class:Time Description:Returns true if time occurs during Daylight Saving Time in its time zone. -|()->true or false|
+dummy?|Class:Encoding Description:Returns true for dummy encodings. A dummy encoding is an encoding for whichcharacter handling is not properly implemented. It is used for statefulencodings. -|()->true or false|
+dup|Class:Object Description:Produces a shallow copy of obj-the instance variables ofobj are copied, but not the objects they reference.dup copies the tainted state of obj. See also thediscussion under Object#clone. In general, cloneand dup may have different semantics in descendant classes.While clone is used to duplicate an object, including itsinternal state, dup typically uses the class of the descendantobject to create the new instance.  This method may have class-specific behavior.  If so, that behavior will bedocumented under the #initialize_copy method of the class. -|()->an_object|
+each_byte|||
+each_char|||
+each_codepoint|||
+each_cons|Class:Enumerable Description:Iterates the given block for each array of consecutive &lt;n&gt; elements. If no block is given, returns an enumerator.  e.g.: -|(n) { ... }->nil|
+each_entry|Class:Enumerable Description:Calls block once for each element in self, passingthat element as a parameter, converting multiple values from yield to anarray.  If no block is given, an enumerator is returned instead.  produces: -|->enum|
+each_index|Class:Array Description:Same as #each, but passes theindex of the element instead of the element itself.  An Enumerator is returned if no block isgiven.  produces: -|->ary|
+each_line|||
+each_slice|Class:Enumerable Description:Iterates the given block for each slice of &lt;n&gt; elements.  If no blockis given, returns an enumerator. -|(n) { ... }->nil|
+each_with_index|Class:Enumerable Description:Calls block with two arguments, the item and its index, for eachitem in enum.  Given arguments are passed through to each().  If no block is given, an enumerator is returned instead. -|(*args) { obj, i block }->enum|
+each_with_index {|Class:Enumerator Description:Same as #with_index, i.e.there is no starting offset.  If no block is given, a new Enumerator isreturned that includes the index. -|(*args), idx ... }->|
+each_with_object|||
+enclose|Class:ThreadGroup Description:Prevents threads from being added to or removed from the receiving ThreadGroup.  New threads can still be started in an enclosed ThreadGroup. -|()->thgrp|
+enclosed?|Class:ThreadGroup Description:Returns true if the thgrp is enclosed. See also#enclose. -|()->true or false|
+encode|Class:String Description:The first form returns a copy of str transcoded to encodingencoding. The second form returns a copy of strtranscoded from src_encoding to dst_encoding. The last form returns a copyof str transcoded to Encoding.default_internal.  By default, the first and second form raise Encoding::UndefinedConversionErrorfor characters that are undefined in the destination encoding, and Encoding::InvalidByteSequenceErrorfor invalid byte sequences in the source encoding. The last form by defaultdoes not raise exceptions but uses replacement strings.  The options Hash gives details forconversion and can have the following keys:  If the value is :replace, encode replaces invalid bytesequences in str with the replacement character.  The defaultis to raise the Encoding::InvalidByteSequenceErrorexception  If the value is :replace, encode replaces characters which areundefined in the destination encoding with the replacement character. Thedefault is to raise the Encoding::UndefinedConversionError.  Sets the replacement string to the given value. The default replacementstring is "uFFFD" for Unicode encoding forms, and "?" otherwise.  Sets the replacement string by the given object for undefined character. The object should be a Hash, a Proc, a Method, or an objectwhich has [] method. Its key is an undefined character encoded in thesource encoding of current transcoder. Its value can be any encoding untilit can be converted into the destination encoding of the transcoder.  The value must be :text or :attr. If the value is:text encodereplaces undefined characters with their (upper-case hexadecimal) numericcharacter references. '&amp;', '&lt;', and '&gt;' are converted to"&amp;amp;", "&amp;lt;", and "&amp;gt;", respectively. If the value is:attr, encode alsoquotes the replacement result (using '"'), and replaces '"' with"&amp;quot;".  Replaces LF ("n") with CR ("r") if value is true.  Replaces LF ("n") with CRLF ("rn") if value is true.  Replaces CRLF ("rn") and CR ("r") with LF ("n") if value is true. -|(encoding [, options] )->str|
+encode!|Class:String Description:The first form transcodes the contents of str from str.encoding toencoding. The second form transcodes the contents ofstr from src_encoding to dst_encoding. The options Hash gives details for conversion. See #encode for details. Returns thestring even if no changes were made. -|(encoding [, options] )->str|
+encoding|||
+end|||
+end_with?|Class:String Description:Returns true if str ends with one of the suffixesgiven. -|([suffixes]+)->true or false|
+enum_for|||
+eof?|||
+eof|Class:IO Description:Returns true if ios is at end of file that means there are no moredata to read. The stream must be opened for reading or anIOError will be raised.  If ios is a stream such as pipe or socket, IO#eof?blocks until the other end sends some data or closes it.  Note that IO#eof? reads data to the input byte buffer. SoIO#sysread may not behave as you intend withIO#eof?, unless you call IO#rewind first (whichis not available for some streams). -|()->true or false|
+eql?|||
+obj =|Class:Object Description:Equality - At the Object level, == returnstrue only if obj and other are thesame object. Typically, this method is overridden in descendant classes toprovide class-specific meaning.  Unlike ==, the equal? method should never beoverridden by subclasses as it is used to determine object identity (thatis, a.equal?(b) if and only if a is the sameobject as b):  The eql? method returns true if objand other refer to the same hash key.  This is used by Hash to test members for equality.  For objects ofclass Object, eql? is synonymous with==.  Subclasses normally continue this tradition by aliasingeql? to their overridden == method, but there areexceptions.  Numeric types, for example, perform typeconversion across ==, but not across eql?, so: -|= other->true or false|
+equal?|Class:BasicObject Description:Equality - At the Object level, == returnstrue only if obj and other are thesame object. Typically, this method is overridden in descendant classes toprovide class-specific meaning.  Unlike ==, the equal? method should never beoverridden by subclasses as it is used to determine object identity (thatis, a.equal?(b) if and only if a is the sameobject as b):  The eql? method returns true if objand other refer to the same hash key.  This is used by Hash to test members for equality.  For objects ofclass Object, eql? is synonymous with==.  Subclasses normally continue this tradition by aliasingeql? to their overridden == method, but there areexceptions.  Numeric types, for example, perform typeconversion across ==, but not across eql?, so: -|(other)->true or false|
+errno|Class:SystemCallError Description:Return this SystemCallError's error number. -|()->fixnum|
+error_bytes|Class:Encoding::InvalidByteSequenceError Description:Returns the discarded bytes when Encoding::InvalidByteSequenceErroroccurs. -|()->string|
+error_char|Class:Encoding::UndefinedConversionError Description:Returns the one-character string which cause Encoding::UndefinedConversionError. -|()->string|
+eval|||
+even?|||
+event|Class:TracePoint Description:Type of event  See Events at TracePoint formore information. -|()->****|
+exclude_end?|Class:Range Description:Returns true if the range excludes its end value. -|()->true or false|
+exit_value|Class:LocalJumpError Description:Returns the exit value associated with this LocalJumpError. -|()->obj|
+exited?|Class:Process::Status Description:Returns true if stat exited normally (for exampleusing an exit() call or finishing the program). -|()->true or false|
+exitstatus|Class:Process::Status Description:Returns the least significant eight bits of the return code ofstat. Only available if exited? is true. -|()->fixnum or nil|
+extend|Class:Object Description:Adds to obj the instance methods from each module given as aparameter. -|(module, ...)->obj|
+extend_object|Class:Module Description:Extends the specified object by adding this module's constants and methods(which are added as singleton methods). This is the callback method used byObject#extend.  produces: -|(obj)->obj|
+extended|Class:Module Description:Not documented -|(p1)->****|
+external_encoding|||
+fail|Class:Kernel Description:With no arguments, raises the exception in $! or raises aRuntimeError if $! is nil. With asingle String argument, raises a RuntimeErrorwith the string as a message. Otherwise, the first parameter should be thename of an Exception class (or an object that returns anException object when sent an exception message).The optional second parameter sets the message associated with theexception, and the third parameter is an array of callback information.Exceptions are caught by the rescue clause ofbegin...end blocks. -|()->|
+fcntl|Class:IO Description:Provides a mechanism for issuing low-level commands to control or queryfile-oriented I/O streams. Arguments and results are platform dependent. Ifarg is a number, its value is passed directly. If it is a string,it is interpreted as a binary sequence of bytes (Array#packmight be a useful way to build this string). On Unix platforms, seefcntl(2) for details. Not implemented on all platforms. -|(integer_cmd, arg)->integer|
+fdatasync|Class:IO Description:Immediately writes all buffered data in ios to disk.  If the underlying operating system does not support fdatasync(2),IO#fsync is called instead (which might raise aNotImplementedError). -|()->0 or nil|
+fdiv|||
+feed obj|Class:Enumerator Description:Sets the value to be returned by the next yield inside e.  If the value is not set, the yield returns nil.  This value is cleared after being yielded. -|()->nil|
+file|Class:ARGF Description:Returns the current file as an IO or File object.#&lt;IO:&lt;STDIN&gt;&gt; is returned when the current file is STDIN.  For example: -|()->IO or File object|
+filename|Class:ARGF Description:Returns the current filename. "-" is returned when the current file isSTDIN.  For example: -|()->String|
+fileno|||
+fill|Class:Array Description:The first three forms set the selected elements of self (whichmay be the entire array) to obj.  A start of nil is equivalent to zero.  A length of nil is equivalent to the length ofthe array.  The last three forms fill the array with the value of the given block,which is passed the absolute index of each element to be filled.  Negative values of start count from the end of the array,where -1 is the last element. -|(obj)->ary|
+finalize|Class:ObjectSpace::WeakMap Description: -|(p1)->****|
+find_all|||
+find_index|||
+finish|Class:Encoding::Converter Description:Finishes the converter. It returns the last part of the converted string. -|()->string|
+finite?|Class:Float Description:Returns true if flt is a valid IEEE floating pointnumber (it is not infinite, and nan? is false). -|()->true or false|
+first|||
+first_lineno|Class:RubyVM::InstructionSequence Description:Returns the number of the first source line where the instruction sequencewas loaded from.  For example, using irb: -|()->****|
+fixed_encoding?|Class:Regexp Description:Returns false if rxp is applicable to a string with any ASCII compatibleencoding. Returns true otherwise. -|()->true or false|
+flat_map|||
+flatten|||
+flatten!|Class:Array Description:Flattens self in place.  Returns nil if no modifications were made (i.e., the arraycontains no subarrays.)  The optional level argument determines the level of recursionto flatten. -|()->ary or nil|
+flock|Class:File Description:Locks or unlocks a file according to locking_constant (a logicalor of the values in the table below). Returns falseif File::LOCK_NB is specified and the operation wouldotherwise have blocked. Not available on all platforms.  Locking constants (in class File):  Example: -|(locking_constant)->0 or false|
+floor|||
+flush|Class:IO Description:Flushes any buffered data within ios to the underlying operatingsystem (note that this is Ruby internal buffering only; the OS may bufferthe data as well).  produces: -|()->ios|
+force_encoding|Class:String Description:Changes the encoding to encoding and returns self. -|(encoding)->str|
+format|Class:Kernel Description:Returns the string resulting from applying format_string to anyadditional arguments.  Within the format string, any characters other thanformat sequences are copied to the result.  The syntax of a format sequence is follows.  A format sequence consists of a percent sign, followed by optional flags,width, and precision indicators, then terminated with a field typecharacter.  The field type controls how the correspondingsprintf argument is to be interpreted, while the flags modifythat interpretation.  The field type characters are:  The flags modifies the behavior of the formats. The flag characters are:  Examples of flags:  The field width is an optional integer, followed optionally by a period anda precision.  The width specifies the minimum number of characters thatwill be written to the result for this field.  Examples of width:  For numeric fields, the precision controls the number of decimal placesdisplayed.  For string fields, the precision determines the maximum numberof characters to be copied from the string.  (Thus, the format sequence%10.10s will always contribute exactly ten characters to theresult.)  Examples of precisions:  Examples:  For more complex formatting, Ruby supports a reference by name.%&lt;name&gt;s style uses format style, but %{name} style doesn't.  Exapmles: -|(format_string [, arguments...] )->string|
+freeze|||
+friday?|Class:Time Description:Returns true if time represents Friday. -|()->true or false|
+frozen?|||
+fsync|Class:IO Description:Immediately writes all buffered data in ios to disk. Note thatfsync differs from using IO#sync=. The latterensures that data is flushed from Ruby's buffers, but does not guaranteethat the underlying operating system actually writes it to disk.  NotImplementedError is raised if the underlying operatingsystem does not support fsync(2). -|()->0 or nil|
+garbage_collect|Class:GC Description:Initiates garbage collection, unless manually disabled. -|()->nil|
+gcd|Class:Integer Description:Returns the greatest common divisor (always positive).  0.gcd(x) andx.gcd(0) return abs(x). -|(int2)->integer|
+gcdlcm|Class:Integer Description:Returns an array; [int.gcd(int2), int.lcm(int2)]. -|(int2)->array|
+getbyte|||
+getc|||
+getgm|Class:Time Description:Returns a new Time object representingtime in UTC. -|()->new_time|
+getlocal|Class:Time Description:Returns a new Time object representingtime in local time (using the local time zone in effect for thisprocess).  If utc_offset is given, it is used instead of the local time. -|()->new_time|
+gets|||
+getutc|Class:Time Description:Returns a new Time object representingtime in UTC. -|()->new_time|
+global_variables|Class:Kernel Description:Returns an array of the names of global variables. -|()->array|
+gmt?|Class:Time Description:Returns true if time represents a time in UTC (GMT). -|()->true or false|
+gmt_offset|Class:Time Description:Returns the offset in seconds between the timezone of time andUTC. -|()->fixnum|
+gmtoff|Class:Time Description:Returns the offset in seconds between the timezone of time andUTC. -|()->fixnum|
+grep|||
+group|Class:Thread Description:Returns the ThreadGroup which contains thegiven thread, or returns nil if thr is not amember of any group. -|()->thgrp or nil|
+group_by|Class:Enumerable Description:Groups the collection by result of the block.  Returns a hash where thekeys are the evaluated result from the block and the values are arrays ofelements in the collection that correspond to the key.  If no block is given an enumerator is returned. -|->a_hash|
+gsub|||
+gsub!|Class:String Description:Performs the substitutions of String#gsub in place, returningstr, or nil if no substitutions were performed. If noblock and no replacement is given, an enumerator is returnedinstead. -|(pattern, replacement)->str or nil|
+hash|||
+hex|Class:String Description:Treats leading characters from str as a string of hexadecimaldigits (with an optional sign and an optional 0x) and returnsthe corresponding number. Zero is returned on error. -|()->integer|
+hour|Class:Time Description:Returns the hour of the day (0..23) for time. -|()->fixnum|
+i|Class:Numeric Description:Returns the corresponding imaginary number. Not available for complexnumbers. -|()->Complex(0,num)|
+id2name|Class:Symbol Description:Returns the name or string corresponding to sym. -|()->string|
+imag|||
+imaginary|||
+include|Class:Module Description:Invokes Module.append_features on each parameter in reverseorder. -|(module, ...)->self|
+include? other_str|Class:String Description:Returns true if str contains the given string orcharacter. -|()->true or false|
+included|Class:Module Description:Callback invoked whenever the receiver is included in another module orclass. This should be used in preference toModule.append_features if your code wants to perform someaction when a module is included in another. -|( othermod )->|
+included_modules|Class:Module Description:Returns the list of modules included in mod. -|()->array|
+incomplete_input?|Class:Encoding::InvalidByteSequenceError Description:Returns true if the invalid byte sequence error is caused by premature endof string. -|()->true or false|
+infinite?|Class:Float Description:Returns nil, -1, or +1 depending on whether flt isfinite, -infinity, or +infinity. -|()->nil, -1, +1|
+inherited|Class:Class Description:Callback invoked whenever a subclass of the current class is created.  Example:  produces: -|(subclass)->|
+initialize_copy|Class:Array Description:Replaces the contents of self with the contents ofother_ary, truncating or expanding if necessary. -|(other_ary)->ary|
+inject|Class:Enumerable Description:Combines all elements of enum by applying a binary operation,specified by a block or a symbol that names a method or operator.  If you specify a block, then for each element in enum the block ispassed an accumulator value (memo) and the element. If you specifya symbol instead, then each element in the collection will be passed to thenamed method of memo. In either case, the result becomes the newvalue for memo. At the end of the iteration, the final value ofmemo is the return value for the method.  If you do not explicitly specify an initial value formemo, then the first element of collection is used as the initialvalue of memo. -|(initial, sym)->obj|
+ino|Class:File::Stat Description:Returns the inode number for stat. -|()->fixnum|
+inplace_mode|Class:ARGF Description:Returns the file extension appended to the names of modified files underinplace-edit mode. This value can be set usingARGF.inplace_mode= or passing the -i switch tothe Ruby binary. -|()->String|
+inplace_mode =|Class:ARGF Description:Each line of file.txt has the first occurrence of "foo" replacedwith "bar", then the new line is written out to file.txt.bak. -|ext->ARGF|
+insert|||
+insert_output|Class:Encoding::Converter Description:Inserts string into the encoding converter. The string will be converted tothe destination encoding and output on later conversions.  If the destination encoding is stateful, string is converted according tothe state and the state is updated.  This method should be used only when a conversion error occurs. -|(string)->nil|
+instance_eval|Class:BasicObject Description:Evaluates a string containing Ruby source code, or the given block, withinthe context of the receiver (obj). In order to set the context,the variable self is set to obj while the code isexecuting, giving the code access to obj's instance variables. Inthe version of instance_eval that takes a String,the optional second and third parameters supply a filename and startingline number that are used when reporting compilation errors. -|(string [, filename [, lineno]] )->obj|
+instance_exec|Class:BasicObject Description:Executes the given block within the context of the receiver (obj).In order to set the context, the variable self is set toobj while the code is executing, giving the code access toobj's instance variables.  Arguments are passed as blockparameters. -|(arg...) {var... block }->obj|
+instance_method|Class:Module Description:Returns an UnboundMethod representing the given instancemethod in mod.  produces: -|(symbol)->unbound_method|
+instance_methods|Class:Module Description:Returns an array containing the names of the public and protected instancemethods in the receiver. For a module, these are the public and protectedmethods; for a class, they are the instance (not singleton) methods. Withno argument, or with an argument that is false, the instancemethods in mod are returned, otherwise the methods in modand mod's superclasses are returned. -|(include_super=true)->array|
+instance_of?|Class:Object Description:Returns true if obj is an instance of the givenclass. See also Object#kind_of?. -|(class)->true or false|
+instance_variable_defined?|Class:Object Description:Returns true if the given instance variable is defined inobj. String arguments are converted tosymbols. -|(symbol)->true or false|
+instance_variable_get|Class:Object Description:Returns the value of the given instance variable, or nil if the instancevariable is not set. The @ part of the variable name should beincluded for regular instance variables. Throws a NameErrorexception if the supplied symbol is not valid as an instance variable name.String arguments are converted to symbols. -|(symbol)->obj|
+instance_variable_set|Class:Object Description:Sets the instance variable names by symbol to object,thereby frustrating the efforts of the class's author to attempt to provideproper encapsulation. The variable did not have to exist prior to thiscall. If the instance variable name is passed as a string, that string isconverted to a symbol. -|(symbol, obj)->obj|
+instance_variables|Class:Object Description:Returns an array of instance variable names for the receiver. Note thatsimply defining an accessor does not create the corresponding instancevariable. -|()->array|
+integer?|||
+intern|||
+internal_encoding|||
+ioctl|Class:IO Description:Provides a mechanism for issuing low-level commands to control or query I/Odevices. Arguments and results are platform dependent. If arg is anumber, its value is passed directly. If it is a string, it is interpretedas a binary sequence of bytes. On Unix platforms, see ioctl(2)for details. Not implemented on all platforms. -|(integer_cmd, arg)->integer|
+is_a?|Class:Object Description:Returns true if class is the class of obj,or if class is one of the superclasses of obj or modulesincluded in obj. -|(class)->true or false|
+isatty|Class:IO Description:Returns true if ios is associated with a terminaldevice (tty), false otherwise. -|()->true or false|
+isdst|Class:Time Description:Returns true if time occurs during Daylight Saving Time in its time zone. -|()->true or false|
+iterator?|Class:Kernel Description:Returns true if yield would execute a block inthe current context. The iterator? form is mildly deprecated. -|()->true or false|
+kind_of?|Class:Object Description:Returns true if class is the class of obj,or if class is one of the superclasses of obj or modulesincluded in obj. -|(class)->true or false|
+label|||
+lambda|Class:Kernel Description:Equivalent to Proc.new, except the resulting Proc objects check the number of parameters passedwhen called. -|->a_proc|
+lambda?|Class:Proc Description:Returns true for a Proc object forwhich argument handling is rigid. Such procs are typically generated bylambda.  A Proc object generated by procignores extra arguments.  It provides nil for missing arguments.  It expands a single array argument.  A Proc object generated by lambdadoesn't have such tricks.  #lambda? is a predicate for thetricks. It returns true if no tricks apply.  ::new is the same asproc.  lambda, proc and ::new preserve the tricks of a Proc object given by &amp; argument.  A Proc object generated by &amp;argument has the tricks  The &amp; argument preserves the tricks if a Proc object is given by &amp; argument.  A Proc object converted from a method has notricks.  define_method is treated the same as method definition. Thedefined method has no tricks.  define_method always defines a method without the tricks, evenif a non-lambda Proc object is given. This is theonly exception for which the tricks are not preserved.  This exception insures that methods never have tricks and makes it easy tohave wrappers to define methods that behave as usual.  The wrapper def2 defines a method which has no tricks. -|()->true or false|
+last|||
+last_error|Class:Encoding::Converter Description:Returns an exception object for the last conversion. Returns nil if thelast conversion did not produce an error.  "error" means that Encoding::InvalidByteSequenceErrorand Encoding::UndefinedConversionErrorfor #convert and:invalid_byte_sequence, :incomplete_input and :undefined_conversion for #primitive_convert. -|()->exception or nil|
+lazy|||
+lcm|Class:Integer Description:Returns the least common multiple (always positive).  0.lcm(x) and x.lcm(0)return zero. -|(int2)->integer|
+line_trace_all|Class:RubyVM::InstructionSequence Description:Experimental MRI specific feature, only available as C levelapi.  Returns all specified_line events. -|()->****|
+line_trace_specify|Class:RubyVM::InstructionSequence Description:Experimental MRI specific feature, only available as C levelapi.  Set a specified_line event at the given line position, if theset parameter is true.  This method is useful for building a debugger breakpoint at a specificline.  A TypeError is raised if setis not boolean.  If pos is a negative integer a TypeError exception is raised. -|(p1, p2)->****|
+lineno|||
+lineno =|||
+lines|||
+ljust|Class:String Description:If integer is greater than the length of str, returns anew String of length integer with str leftjustified and padded with padstr; otherwise, returns str. -|(integer, padstr=' ')->new_str|
+local_variables|Class:Kernel Description:Returns the names of the current local variables. -|()->array|
+localtime|Class:Time Description:Converts time to local time (using the local time zone in effectfor this process) modifying the receiver.  If utc_offset is given, it is used instead of the local time. -|()->time|
+lock|Class:Mutex Description:Attempts to grab the lock and waits if it isn't available. RaisesThreadError if mutex was locked by the currentthread. -|()->self|
+locked?|Class:Mutex Description:Returns true if this lock is currently held by some thread. -|()->true or false|
+loop|Class:Kernel Description:Repeatedly executes the block.  If no block is given, an enumerator is returned instead.  StopIteration raised in the block breaksthe loop. -|->|
+lstrip|Class:String Description:Returns a copy of str with leading whitespace removed. See alsoString#rstrip and String#strip. -|()->new_str|
+lstrip!|Class:String Description:Removes leading whitespace from str, returning nil ifno change was made. See also String#rstrip! andString#strip!. -|()->self or nil|
+magnitude|||
+map|||
+map!|Class:Array Description:Invokes the given block once for each element of self,replacing the element with the value returned by the block.  See also Enumerable#collect.  If no block is given, an Enumerator isreturned instead. -|->ary|
+match|||
+max|||
+max_by|Class:Enumerable Description:Returns the object in enum that gives the maximum value from thegiven block.  If no block is given, an enumerator is returned instead. -|->obj|
+mday|Class:Time Description:Returns the day of the month (1..n) for time. -|()->fixnum|
+members|Class:Struct Description:Returns the struct members as an array of symbols: -|()->array|
+merge|Class:Hash Description:Returns a new hash containing the contents of other_hash and thecontents of hsh. If no block is specified, the value for entrieswith duplicate keys will be that of other_hash. Otherwise thevalue for each duplicate key is determined by calling the block with thekey, its value in hsh and its value in other_hash. -|(other_hash)->new_hash|
+merge!|Class:Hash Description:Adds the contents of other_hash to hsh.  If no block isspecified, entries with duplicate keys are overwritten with the values fromother_hash, otherwise the value of each duplicate key isdetermined by calling the block with the key, its value in hsh andits value in other_hash. -|(other_hash)->hsh|
+message|Class:Exception Description:Returns the result of invoking exception.to_s. Normally thisreturns the exception's message or name. By supplying a to_str method,exceptions are agreeing to be used where Strings are expected. -|()->string|
+method|Class:Object Description:Looks up the named method as a receiver in obj, returning aMethod object (or raising NameError). TheMethod object acts as a closure in obj's objectinstance, so instance variables and the value of self remainavailable. -|(sym)->method|
+method_added|Class:Module Description:Invoked as a callback whenever an instance method is added to the receiver.  produces: -|(method_name)->|
+method_defined?|Class:Module Description:Returns true if the named method is defined by mod(or its included modules and, if mod is a class, its ancestors).Public and protected methods are matched. Stringarguments are converted to symbols. -|(symbol)->true or false|
+method_id|Class:TracePoint Description:Return the name of the method being called -|()->****|
+method_missing|Class:BasicObject Description:Invoked by Ruby when obj is sent a message it cannot handle.symbol is the symbol for the method called, and args areany arguments that were passed to it. By default, the interpreter raises anerror when this method is called. However, it is possible to override themethod to provide more dynamic behavior. If it is decided that a particularmethod should not be handled, then super should be called, so thatancestors can pick up the missing method. The example below creates a classRoman, which responds to methods with names consisting ofroman numerals, returning the corresponding integer values. -|(symbol [, *args] )->result|
+method_removed|Class:Module Description:Invoked as a callback whenever an instance method is removed from thereceiver.  produces: -|(method_name)->|
+method_undefined|Class:Module Description:Not documented -|(p1)->****|
+methods|Class:Object Description:Returns a list of the names of public and protected methods ofobj. This will include all the methods accessible inobj's ancestors. If the regular parameter is set tofalse, Returns an array of obj's public and protectedsingleton methods, the array will not include methods in modules includedin obj. -|(regular=true)->array|
+min|||
+min_by|Class:Enumerable Description:Returns the object in enum that gives the minimum value from thegiven block.  If no block is given, an enumerator is returned instead. -|->obj|
+minmax|Class:Enumerable Description:Returns two elements array which contains the minimum and the maximum valuein the enumerable.  The first form assumes all objects implementComparable; the second uses the block to return a&lt;=&gt; b. -|()->[min, max]|
+minmax_by|Class:Enumerable Description:Returns a two element array containing the objects in enum thatcorrespond to the minimum and maximum values respectively from the givenblock.  If no block is given, an enumerator is returned instead. -|->[min, max]|
+mode|Class:File::Stat Description:Returns an integer representing the permission bits of stat. Themeaning of the bits is platform dependent; on Unix systems, seestat(2). -|()->fixnum|
+module_eval|Class:Module Description:Evaluates the string or block in the context of mod, except thatwhen a block is given, constant/class variable lookup is not affected. Thiscan be used to add methods to a class. module_eval returns theresult of evaluating its argument. The optional filename andlineno parameters set the text for error messages.  produces: -|->obj|
+module_exec|Class:Module Description:Evaluates the given block in the context of the class/module. The methoddefined in the block will belong to the receiver. Any arguments passed tothe method will be passed to the block. This can be used if the block needsto access instance variables.  produces: -|(arg...) {var... block }->obj|
+module_function|Class:Module Description:Creates module functions for the named methods. These functions may becalled with the module as a receiver, and also become available as instancemethods to classes that mix in the module. Modulefunctions are copies of the original, and so may be changed independently.The instance-method versions are made private. If used with no arguments,subsequently defined methods become module functions. String arguments are converted to symbols. -|(symbol, ...)->self|
+modulo|||
+mon|Class:Time Description:Returns the month of the year (1..12) for time. -|()->fixnum|
+monday?|Class:Time Description:Returns true if time represents Monday. -|()->true or false|
+month|Class:Time Description:Returns the month of the year (1..12) for time. -|()->fixnum|
+name|||
+named_captures|Class:Regexp Description:Returns a hash representing information about named captures ofrxp.  A key of the hash is a name of the named captures. A value of the hash isan array which is list of indexes of corresponding named captures.  If there are no named captures, an empty hash is returned. -|()->hash|
+names|||
+nan?|Class:Float Description:Returns true if flt is an invalid IEEE floating pointnumber. -|()->true or false|
+next|||
+next!|Class:String Description:Equivalent to String#succ, but modifies the receiver in place. -|()->str|
+next_values|Class:Enumerator Description:Returns the next object as an array in the enumerator, and move theinternal position forward.  When the position reached at the end, StopIteration is raised.  This method can be used to distinguish yield and yieldnil.  Note that next_values does not affect other non-externalenumeration methods unless underlying iteration method itself hasside-effect, e.g. IO#each_line. -|()->array|
+nil?|||
+nlink|Class:File::Stat Description:Returns the number of hard links to stat. -|()->fixnum|
+none? |Class:Enumerable Description:Passes each element of the collection to the given block. The methodreturns true if the block never returns true forall elements. If the block is not given, none? will returntrue only if none of the collection members is true. -|->true or false|
+nonzero?|Class:Numeric Description:Returns self if num is not zero, nilotherwise. This behavior is useful when chaining comparisons: -|()->self or nil|
+nsec|Class:Time Description:Returns the number of nanoseconds for time.  The lowest digits of to_f and nsec are different because IEEE 754double is not accurate enough to represent the exact number of nanosecondssince the Epoch.  The more accurate value is returned by nsec. -|()->int|
+numerator|||
+__id__|Class:Object Description:Returns an integer identifier for obj.  The same number will be returned on all calls to id for agiven object, and no two active objects will share an id.  #object_id is a differentconcept from the :name notation, which returns the symbol idof name.  Replaces the deprecated Object#id. -|()->integer|
+oct|Class:String Description:Treats leading characters of str as a string of octal digits (withan optional sign) and returns the corresponding number.  Returns 0 if theconversion fails. -|()->integer|
+odd?|||
+offset|Class:MatchData Description:Returns a two-element array containing the beginning and ending offsets ofthe nth match. n can be a string or symbol to reference anamed capture. -|(n)->array|
+one? |Class:Enumerable Description:Passes each element of the collection to the given block. The methodreturns true if the block returns true exactlyonce. If the block is not given, one? will returntrue only if exactly one of the collection members is true. -|->true or false|
+options|Class:Regexp Description:Returns the set of bits corresponding to the options used when creatingthis Regexp (see Regexp::new fordetails. Note that additional bits may be set in the returned options:these are used internally by the regular expression code. These extra bitsare ignored if the options are passed to Regexp::new. -|()->fixnum|
+ord|||
+original_name|||
+owner|||
+p|Class:Kernel Description:For each object, directly writes obj.inspect followedby a newline to the program's standard output.  produces: -|(obj)->obj|
+pack|Class:Array Description:Packs the contents of arr into a binary sequence according to thedirectives in aTemplateString (see the table below) Directives"A," "a," and "Z" may be followed by a count, which gives the width of theresulting field. The remaining directives also may take a count, indicatingthe number of array elements to convert. If the count is an asterisk("*"), all remaining array elements will be converted. Any ofthe directives "sSiIlL" may be followed by an underscore("_") or exclamation mark ("!") to use theunderlying platform's native size for the specified type; otherwise, theyuse a platform-independent size. Spaces are ignored in the template string.See also String#unpack.  Directives for pack. -|( aTemplateString )->aBinaryString|
+parameters|||
+partition|||
+peek|Class:Enumerator Description:Returns the next object in the enumerator, but doesn't move the internalposition forward.  If the position is already at the end, StopIteration is raised. -|()->object|
+peek_values|Class:Enumerator Description:Returns the next object as an array, similar to #next_values, but doesn'tmove the internal position forward.  If the position is already at the end,StopIteration is raised. -|()->array|
+permutation|Class:Array Description:When invoked with a block, yield all permutations of length nof the elements of the array, then return the array itself.  If n is not specified, yield all permutations of all elements.  The implementation makes no guarantees about the order in which thepermutations are yielded.  If no block is given, an Enumerator isreturned instead.  Examples: -|->ary|
+phase|||
+pop|Class:Array Description:Removes the last element from self and returns it, ornil if the array is empty.  If a number n is given, returns an array of the lastn elements (or less) just like array.slice!(-n,n) does. See also #push forthe opposite effect. -|()->obj or nil|
+pos|||
+pos =|||
+post_match|Class:MatchData Description:Returns the portion of the original string after the current match.Equivalent to the special variable $'. -|()->str|
+pre_match|Class:MatchData Description:Returns the portion of the original string before the current match.Equivalent to the special variable $`. -|()->str|
+pred|Class:Integer Description:Returns the Integer equal to int - 1. -|()->integer|
+prepend|||
+prepend_features|Class:Module Description:When this module is prepended in another, Ruby callsprepend_features in this module, passing it the receivingmodule in mod. Ruby's default implementation is to overlay theconstants, methods, and module variables of this module to mod ifthis module has not already been added to mod or one of itsancestors. See also Module#prepend. -|(mod)->mod|
+prepended|Class:Module Description:The equivalent of included, but for prepended modules. -|( othermod )->|
+primitive_convert|Class:Encoding::Converter Description:possible opt elements:  possible results:  #primitive_convertconverts source_buffer into destination_buffer.  source_buffer should be a string or nil. nil means an empty string.  destination_buffer should be a string.  destination_byteoffset should be an integer or nil. nil means the end ofdestination_buffer. If it is omitted, nil is assumed.  destination_bytesize should be an integer or nil. nil means unlimited. Ifit is omitted, nil is assumed.  opt should be nil, a hash or an integer. nil means no flags. If it isomitted, nil is assumed.  #primitive_convertconverts the content of source_buffer from beginning and store the resultinto destination_buffer.  destination_byteoffset and destination_bytesize specify the region whichthe converted result is stored. destination_byteoffset specifies the startposition in destination_buffer in bytes. If destination_byteoffset is nil,destination_buffer.bytesize is used for appending the result.destination_bytesize specifies maximum number of bytes. Ifdestination_bytesize is nil, destination size is unlimited. Afterconversion, destination_buffer is resized to destination_byteoffset +actually produced number of bytes. Also destination_buffer's encoding isset to destination_encoding.  #primitive_convertdrops the converted part of source_buffer. the dropped part is converted indestination_buffer or buffered in Encoding::Converter object.  #primitive_convertstops conversion when one of following condition met.  invalid byte sequence found in source buffer (:invalid_byte_sequence)primitive_errinfo and last_error methods returnsthe detail of the error.  unexpected end of source buffer (:incomplete_input) this occur only when:partial_input is not specified. primitive_errinfo andlast_error methods returns the detail of the error.  character not representable in output encoding (:undefined_conversion)primitive_errinfo and last_error methods returnsthe detail of the error.  after some output is generated, before input is done (:after_output) thisoccur only when :after_output is specified.  destination buffer is full (:destination_buffer_full) this occur only whendestination_bytesize is non-nil.  source buffer is empty (:source_buffer_empty) this occur only when:partial_input is specified.  conversion is finished (:finished)  example: -|(source_buffer, destination_buffer)->symbol|
+primitive_errinfo|Class:Encoding::Converter Description:#primitive_errinforeturns important information regarding the last error as a 5-elementarray:  result is the last result of primitive_convert.  Other elements are only meaningful when result is :invalid_byte_sequence,:incomplete_input or :undefined_conversion.  enc1 and enc2 indicate a conversion step as a pair of strings. For example,a converter from EUC-JP to ISO-8859-1 converts a string as follows: EUC-JP-&gt; UTF-8 -&gt; ISO-8859-1. So [enc1, enc2] is either ["EUC-JP", "UTF-8"]or ["UTF-8", "ISO-8859-1"].  error_bytes and readagain_bytes indicate the byte sequences which causedthe error. error_bytes is discarded portion. readagain_bytes is bufferedportion which is read again on next conversion.  Example: -|()->array|
+print|||
+printf|||
+priority|Class:Thread Description:Returns the priority of thr. Default is inherited from the currentthread which creating the new thread, or zero for the initial main thread;higher-priority thread will run more frequently than lower-priority threads(but lower-priority threads can also run).  This is just hint for Ruby thread scheduler.  It may be ignored on someplatform. -|()->integer|
+priority=|Class:Thread Description:Sets the priority of thr to integer. Higher-prioritythreads will run more frequently than lower-priority threads (butlower-priority threads can also run).  This is just hint for Ruby thread scheduler.  It may be ignored on someplatform. -|integer->thr|
+private|Class:Module Description:With no arguments, sets the default visibility for subsequently definedmethods to private. With arguments, sets the named methods to have privatevisibility. String arguments are converted tosymbols. -|()->self|
+private_class_method|Class:Module Description:Makes existing class methods private. Often used to hide the defaultconstructor new.  String arguments are converted to symbols. -|(symbol, ...)->mod|
+private_constant|Class:Module Description:Makes a list of existing constants private. -|(symbol, ...)->mod|
+private_instance_methods|Class:Module Description:Returns a list of the private instance methods defined in mod. Ifthe optional parameter is not false, the methods of anyancestors are included. -|(include_super=true)->array|
+private_method_defined?|Class:Module Description:Returns true if the named private method is defined by _ mod_(or its included modules and, if mod is a class, its ancestors).String arguments are converted to symbols. -|(symbol)->true or false|
+private_methods|Class:Object Description:Returns the list of private methods accessible to obj. If theall parameter is set to false, only those methods inthe receiver will be listed. -|(all=true)->array|
+proc|Class:Kernel Description:Equivalent to Proc.new. -|->a_proc|
+product|Class:Array Description:Returns an array of all combinations of elements from all arrays.  The length of the returned array is the product of the length ofself and the argument arrays.  If given a block, product willyield all combinations and return self instead. -|(other_ary, ...)->new_ary|
+protected|Class:Module Description:With no arguments, sets the default visibility for subsequently definedmethods to protected. With arguments, sets the named methods to haveprotected visibility. String arguments areconverted to symbols. -|()->self|
+protected_instance_methods|Class:Module Description:Returns a list of the protected instance methods defined in mod.If the optional parameter is not false, the methods of anyancestors are included. -|(include_super=true)->array|
+protected_method_defined?|Class:Module Description:Returns true if the named protected method is defined bymod (or its included modules and, if mod is a class, itsancestors). String arguments are converted tosymbols. -|(symbol)->true or false|
+protected_methods|Class:Object Description:Returns the list of protected methods accessible to obj. If theall parameter is set to false, only those methods inthe receiver will be listed. -|(all=true)->array|
+public|Class:Module Description:With no arguments, sets the default visibility for subsequently definedmethods to public. With arguments, sets the named methods to have publicvisibility. String arguments are converted tosymbols. -|()->self|
+public_class_method|Class:Module Description:Makes a list of existing class methods public.  String arguments are converted to symbols. -|(symbol, ...)->mod|
+public_constant|Class:Module Description:Makes a list of existing constants public. -|(symbol, ...)->mod|
+public_instance_method|Class:Module Description:Similar to instance_method, searches public method only. -|(symbol)->unbound_method|
+public_instance_methods|Class:Module Description:Returns a list of the public instance methods defined in mod. Ifthe optional parameter is not false, the methods of anyancestors are included. -|(include_super=true)->array|
+public_method|Class:Object Description:Similar to method, searches public method only. -|(sym)->method|
+public_method_defined?|Class:Module Description:Returns true if the named public method is defined bymod (or its included modules and, if mod is a class, itsancestors). String arguments are converted tosymbols. -|(symbol)->true or false|
+public_methods|Class:Object Description:Returns the list of public methods accessible to obj. If theall parameter is set to false, only those methods inthe receiver will be listed. -|(all=true)->array|
+public_send|Class:Object Description:Invokes the method identified by symbol, passing it any argumentsspecified. Unlike send, #public_send calls publicmethods only. When the method is identified by a string, the string isconverted to a symbol. -|(symbol [, args...])->obj|
+push|Class:Array Description:Append - Pushes the given object(s) on to the end of this array. Thisexpression returns the array itself, so several appends may be chainedtogether. See also #pop for theopposite effect. -|(obj, ... )->ary|
+putback|Class:Encoding::Converter Description:call-seq  Put back the bytes which will be converted.  The bytes are caused by invalid_byte_sequence error. Wheninvalid_byte_sequence error, some bytes are discarded and some bytes arebuffered to be converted later. The latter bytes can be put back. It can beobserved by Encoding::InvalidByteSequenceError#readagain_bytesand #primitive_errinfo. -|(p1 = v1)->****|
+putc|||
+puts|||
+cmp / numeric|Class:Complex Description:Performs division. -|()->complex|
+quo|||
+raise|||
+raised_exception|Class:TracePoint Description:Value from exception raised on the :raise event -|()->****|
+rationalize|||
+rdev|Class:File::Stat Description:Returns an integer representing the device type on which statresides. Returns nil if the operating system doesn't supportthis feature. -|()->fixnum or nil|
+rdev_major|Class:File::Stat Description:Returns the major part of File_Stat#rdev or nil. -|()->fixnum|
+rdev_minor|Class:File::Stat Description:Returns the minor part of File_Stat#rdev or nil. -|()->fixnum|
+read_nonblock|||
+readagain_bytes|Class:Encoding::InvalidByteSequenceError Description:Returns the bytes to be read again when Encoding::InvalidByteSequenceErroroccurs. -|()->string|
+readbyte|||
+readchar|||
+readline|||
+readpartial|||
+real|||
+real?|||
+reason|Class:LocalJumpError Description:The reason this block was terminated: :break, :redo, :retry, :next,:return, or :noreason. -|()->symbol|
+receiver|Class:Method Description:Returns the bound receiver of the method object. -|()->object|
+rectangular|Class:Numeric Description:Returns an array; [num, 0]. -|()->array|
+reduce|Class:Enumerable Description:Combines all elements of enum by applying a binary operation,specified by a block or a symbol that names a method or operator.  If you specify a block, then for each element in enum the block ispassed an accumulator value (memo) and the element. If you specifya symbol instead, then each element in the collection will be passed to thenamed method of memo. In either case, the result becomes the newvalue for memo. At the end of the iteration, the final value ofmemo is the return value for the method.  If you do not explicitly specify an initial value formemo, then the first element of collection is used as the initialvalue of memo. -|(initial, sym)->obj|
+refine|Class:Module Description:Refine klass in the receiver.  Returns an overlaid module. -|(klass) { block }->module|
+regexp|Class:MatchData Description:Returns the regexp. -|()->regexp|
+remainder|||
+remove_class_variable|Class:Module Description:Removes the definition of the sym, returning that constant'svalue.  produces: -|(sym)->obj|
+remove_const|Class:Module Description:Removes the definition of the given constant, returning that constant'sprevious value.  If that constant referred to a module, this will notchange that module's name and can lead to confusion. -|(sym)->obj|
+remove_instance_variable|Class:Object Description:Removes the named instance variable from obj, returning thatvariable's value. -|(symbol)->obj|
+remove_method|Class:Module Description:Removes the method identified by symbol from the current class.For an example, see Module.undef_method. String arguments are converted to symbols. -|(symbol)->self|
+reopen|Class:IO Description:Reassociates ios with the I/O stream given in other_IO orto a new stream opened on path. This may dynamically change theactual class of this stream. -|(other_IO)->ios|
+repeated_combination|Class:Array Description:When invoked with a block, yields all repeated combinations of lengthn of elements from the array and then returns the arrayitself.  The implementation makes no guarantees about the order in which therepeated combinations are yielded.  If no block is given, an Enumerator isreturned instead.  Examples: -|(n) { c block }->ary|
+repeated_permutation|Class:Array Description:When invoked with a block, yield all repeated permutations of lengthn of the elements of the array, then return the array itself.  The implementation makes no guarantees about the order in which therepeated permutations are yielded.  If no block is given, an Enumerator isreturned instead.  Examples: -|(n) { p block }->ary|
+replacement|Class:Encoding::Converter Description:Returns the replacement string. -|()->string|
+replacement =|Class:Encoding::Converter Description:Sets the replacement string. -|string->|
+replicate|Class:Encoding Description:Returns a replicated encoding of enc whose name is name.The new encoding should have the same byte structure of enc. Ifname is used by another encoding, raise ArgumentError. -|(name)->encoding|
+require|Class:Kernel Description:Loads the given name, returning true ifsuccessful and false if the feature is already loaded.  If the filename does not resolve to an absolute path, it will be searchedfor in the directories listed in $LOAD_PATH ($:).  If the filename has the extension ".rb", it is loaded as a source file; ifthe extension is ".so", ".o", or ".dll", or the default shared libraryextension on the current platform, Ruby loads the shared library as a Rubyextension.  Otherwise, Ruby tries adding ".rb", ".so", and so on to thename until found.  If the file named cannot be found, a LoadError will be raised.  For Ruby extensions the filename given may use any shared libraryextension.  For example, on Linux the socket extension is "socket.so" andrequire 'socket.dll' will load the socket extension.  The absolute path of the loaded file is added to$LOADED_FEATURES ($").  A file will not beloaded again if its path already appears in $".  Forexample, require 'a'; require './a' will not loada.rb again.  Any constants or globals within the loaded source file will be available inthe calling program's global namespace. However, local variables will notbe propagated to the loading environment. -|(name)->true or false|
+require_relative|Class:Kernel Description:Ruby tries to load the library named string relative to therequiring file's path.  If the file's path cannot be determined a LoadError is raised. If a file is loadedtrue is returned and false otherwise. -|(string)->true or false|
+respond_to?|Class:Object Description:Returns true if obj responds to the given method. Private and protected methods are included in the search only if theoptional second parameter evaluates to true.  If the method is not implemented, as Process.fork on Windows, File.lchmod on GNU/Linux, etc., falseis returned.  If the method is not defined, respond_to_missing? method iscalled and the result is returned.  When the method name parameter is given as a string, the string isconverted to a symbol. -|(symbol, include_all=false)->true or false|
+respond_to_missing?|Class:Object Description:DO NOT USE THIS DIRECTLY.  Hook method to return whether the obj can respond to idmethod or not.  When the method name parameter is given as a string, the string isconverted to a symbol.  See respond_to?. -|(symbol, include_all)->true or false|
+resume|Class:Fiber Description:Resumes the fiber from the point at which the last Fiber.yieldwas called, or starts running it if it is the first call toresume. Arguments passed to resume will be the value of theFiber.yield expression or will be passed as block parametersto the fiber's block if this is the first resume.  Alternatively, when resume is called it evaluates to the arguments passedto the next Fiber.yield statement inside the fiber's block orto the block value if it runs to completion without anyFiber.yield -|(args, ...)->obj|
+return_value|Class:TracePoint Description:Return value from :return, c_return, andb_return event -|()->****|
+reverse|||
+reverse!|||
+reverse_each|||
+rewind|||
+rindex|||
+rjust|Class:String Description:If integer is greater than the length of str, returns anew String of length integer with str rightjustified and padded with padstr; otherwise, returns str. -|(integer, padstr=' ')->new_str|
+rotate|Class:Array Description:Returns a new array by rotating self so that the element atcount is the first element of the new array.  If count is negative then it rotates in the oppositedirection, starting from the end of self where -1is the last element. -|(count=1)->new_ary|
+rotate!|Class:Array Description:Rotates self in place so that the element atcount comes first, and returns self.  If count is negative then it rotates in the oppositedirection, starting from the end of the array where -1 is thelast element. -|(count=1)->ary|
+round|||
+rpartition|Class:String Description:Searches sep or pattern (regexp) in the string from theend of the string, and returns the part before it, the match, and the partafter it. If it is not found, returns two empty strings and str. -|(sep)->[head, sep, tail]|
+rstrip|Class:String Description:Returns a copy of str with trailing whitespace removed. See alsoString#lstrip and String#strip. -|()->new_str|
+rstrip!|Class:String Description:Removes trailing whitespace from str, returning nilif no change was made. See also String#lstrip! andString#strip!. -|()->self or nil|
+run|Class:Thread Description:Wakes up thr, making it eligible for scheduling.  This will produce:  See also the instance method wakeup. -|()->thr|
+safe_level|Class:Thread Description:Returns the safe level in effect for thr. Setting thread-localsafe levels can help when implementing sandboxes which run insecure code. -|()->integer|
+sample|Class:Array Description:Choose a random element or n random elements from the array.  The elements are chosen by using random and unique indices into the arrayin order to ensure that an element doesn't repeat itself unless the arrayalready contained duplicate elements.  If the array is empty the first form returns nil and thesecond form returns an empty array.  The optional rng argument will be used as the random numbergenerator. -|()->obj|
+saturday?|Class:Time Description:Returns true if time represents Saturday. -|()->true or false|
+scan|Class:String Description:Both forms iterate through str, matching the pattern (which may bea Regexp or a String). For each match, a resultis generated and either added to the result array or passed to the block.If the pattern contains no groups, each individual result consists of thematched string, $&amp;.  If the pattern contains groups, eachindividual result is itself an array containing one entry per group.  And the block form:  produces: -|(pattern)->array|
+scrub|Class:String Description:If the string is invalid byte sequence then replace invalid bytes withgiven replacement character, else returns self. If block is given, replaceinvalid bytes with returned value of the block. -|()->new_str|
+scrub!|Class:String Description:If the string is invalid byte sequence then replace invalid bytes withgiven replacement character, else returns self. If block is given, replaceinvalid bytes with returned value of the block. -|()->str|
+sec|Class:Time Description:Returns the second of the minute (0..60) for time.  Note: Seconds range from zero to 60 to allow the system toinject leap seconds. See en.wikipedia.org/wiki/Leap_secondfor further details. -|()->fixnum|
+seed|Class:Random Description:Returns the seed value used to initialize the generator. This may be usedto initialize another generator with the same state at a later time,causing it to produce the same sequence of numbers. -|()->integer|
+seek|||
+self|Class:TracePoint Description:Return the trace object during event  Same as #binding: -|()->****|
+send|Class:Object Description:Invokes the method identified by symbol, passing it any argumentsspecified. You can use __send__ if the name sendclashes with an existing method in obj. When the method isidentified by a string, the string is converted to a symbol. -|(symbol [, args...])->obj|
+set_backtrace|Class:Exception Description:Sets the backtrace information associated with exc. Thebacktrace must be an array of Stringobjects or a single String in the formatdescribed in #backtrace. -|(backtrace)->array|
+set_encoding|||
+set_trace_func|||
+setbyte|Class:String Description:modifies the indexth byte as integer. -|(index, integer)->integer|
+shuffle|Class:Array Description:Returns a new array with elements of self shuffled.  The optional rng argument will be used as the random numbergenerator. -|()->new_ary|
+shuffle!|Class:Array Description:Shuffles elements in self in place.  The optional rng argument will be used as the random numbergenerator. -|()->ary|
+signaled?|Class:Process::Status Description:Returns true if stat terminated because of anuncaught signal. -|()->true or false|
+signo|Class:SignalException Description:Returns a signal number. -|()->num|
+singleton_class|Class:Object Description:Returns the singleton class of obj.  This method creates a newsingleton class if obj does not have it.  If obj is nil, true, orfalse, it returns NilClass, TrueClass, or FalseClass, respectively. If obj is aFixnum or a Symbol, itraises a TypeError. -|()->class|
+singleton_method|Class:Object Description:Similar to method, searches singleton method only. -|(sym)->method|
+singleton_method_added|||
+singleton_method_removed|Class:BasicObject Description:Invoked as a callback whenever a singleton method is removed from thereceiver.  produces: -|(symbol)->|
+singleton_method_undefined|Class:BasicObject Description:Invoked as a callback whenever a singleton method is undefined in thereceiver.  produces: -|(symbol)->|
+singleton_methods|Class:Object Description:Returns an array of the names of singleton methods for obj. If theoptional all parameter is true, the list will include methods inmodules included in obj. Only public and protected singletonmethods are returned. -|(all=true)->array|
+skip|Class:ARGF Description:For example: -|()->ARGF|
+sleep|||
+slice|||
+slice!|||
+slice_before|||
+sort|||
+sort!|Class:Array Description:Sorts self in place.  Comparisons for the sort will be done using the &lt;=&gt;operator or using an optional code block.  The block must implement a comparison between a andb, and return -1, when a followsb, 0 when a and b areequivalent, or +1 if b follows a.  See also Enumerable#sort_by. -|()->ary|
+sort_by|Class:Enumerable Description:Sorts enum using a set of keys generated by mapping the values inenum through the given block.  If no block is given, an enumerator is returned instead.  The current implementation of sort_by generates an array oftuples containing the original collection element and the mapped value.This makes sort_by fairly expensive when the keysets aresimple.  produces:  However, consider the case where comparing the keys is a non-trivialoperation. The following code sorts some files on modification time usingthe basic sort method.  This sort is inefficient: it generates two new File objectsduring every comparison. A slightly better technique is to use theKernel#test method to generate the modification timesdirectly.  This still generates many unnecessary Time objects. A moreefficient technique is to cache the sort keys (modification times in thiscase) before the sort. Perl users often call this approach a SchwartzianTransform, after Randal Schwartz. We construct a temporary array, whereeach element is an array containing our sort key along with the filename.We sort this array, and then extract the filename from the result.  This is exactly what sort_by does internally. -|->array|
+sort_by!|Class:Array Description:Sorts self in place using a set of keys generated by mappingthe values in self through the given block.  If no block is given, an Enumerator isreturned instead. -|->ary|
+source|Class:Regexp Description:Returns the original string of the pattern.  Note that escape sequences are retained as is. -|()->str|
+source_encoding|||
+source_encoding_name|||
+source_location|||
+sprintf|Class:Kernel Description:Returns the string resulting from applying format_string to anyadditional arguments.  Within the format string, any characters other thanformat sequences are copied to the result.  The syntax of a format sequence is follows.  A format sequence consists of a percent sign, followed by optional flags,width, and precision indicators, then terminated with a field typecharacter.  The field type controls how the correspondingsprintf argument is to be interpreted, while the flags modifythat interpretation.  The field type characters are:  The flags modifies the behavior of the formats. The flag characters are:  Examples of flags:  The field width is an optional integer, followed optionally by a period anda precision.  The width specifies the minimum number of characters thatwill be written to the result for this field.  Examples of width:  For numeric fields, the precision controls the number of decimal placesdisplayed.  For string fields, the precision determines the maximum numberof characters to be copied from the string.  (Thus, the format sequence%10.10s will always contribute exactly ten characters to theresult.)  Examples of precisions:  Examples:  For more complex formatting, Ruby supports a reference by name.%&lt;name&gt;s style uses format style, but %{name} style doesn't.  Exapmles: -|(format_string [, arguments...] )->string|
+squeeze|Class:String Description:Builds a set of characters from the other_str parameter(s) usingthe procedure described for String#count. Returns a new stringwhere runs of the same character that occur in this set are replaced by asingle character. If no arguments are given, all runs of identicalcharacters are replaced by a single character. -|([other_str]*)->new_str|
+squeeze!|Class:String Description:Squeezes str in place, returning either str, ornil if no changes were made. -|([other_str]*)->str or nil|
+start_with?|Class:String Description:Returns true if str starts with one of theprefixes given. -|([prefixes]+)->true or false|
+status|||
+step|||
+stop?|Class:Thread Description:Returns true if thr is dead or sleeping.  See also alive? and status. -|()->true or false|
+stopped?|Class:Process::Status Description:Returns true if this process is stopped. This is only returnedif the corresponding wait call had the WUNTRACEDflag set. -|()->true or false|
+stopsig|Class:Process::Status Description:Returns the number of the signal that caused stat to stop (ornil if self is not stopped). -|()->fixnum or nil|
+strftime|Class:Time Description:Formats time according to the directives in the given formatstring.  The directives begin with a percent (%) character. Any text not listed as adirective will be passed through to the output string.  The directive consists of a percent (%) character, zero or more flags,optional minimum field width, optional modifier and a conversion specifieras follows:  Flags:  The minimum field width specifies the minimum width.  The modifiers are "E" and "O". They are ignored.  Format directives:  This method is similar to strftime() function defined in ISO C and POSIX.  While all directives are locale independent since Ruby 1.9, %Z is platformdependent. So, the result may differ even if the same format string is usedin other systems such as C.  %z is recommended over %Z. %Z doesn't identify the timezone. For example,"CST" is used at America/Chicago (-06:00), America/Havana (-05:00),Asia/Harbin (+08:00), Australia/Darwin (+09:30) and Australia/Adelaide(+10:30). Also, %Z is highly dependent on the operating system. Forexample, it may generate a non ASCII string on Japanese Windows. i.e. theresult can be different to "JST". So the numeric time zone offset, %z, isrecommended.  Examples:  Various ISO 8601 formats: -|( string )->string|
+string|Class:MatchData Description:Returns a frozen copy of the string passed in to match. -|()->str|
+strip|Class:String Description:Returns a copy of str with leading and trailing whitespaceremoved. -|()->new_str|
+strip!|Class:String Description:Removes leading and trailing whitespace from str. Returnsnil if str was not altered. -|()->str or nil|
+sub|||
+sub!|Class:String Description:Performs the same substitution as #sub in-place.  Returns str if a substitution was performed ornil if no substitution was performed. -|(pattern, replacement)->str or nil|
+subsec|Class:Time Description:Returns the fraction for time.  The return value can be a rational number.  The lowest digits of to_f and subsec are different because IEEE 754double is not accurate enough to represent the rational number.  The more accurate value is returned by subsec. -|()->number|
+succ|||
+succ!|Class:String Description:Equivalent to String#succ, but modifies the receiver in place. -|()->str|
+success?|||
+sum|Class:String Description:Returns a basic n-bit checksum of the characters in str,where n is the optional Fixnum parameter, defaultingto 16. The result is simply the sum of the binary value of each characterin str modulo 2**n - 1. This is not a particularlygood checksum. -|(n=16)->integer|
+sunday?|Class:Time Description:Returns true if time represents Sunday. -|()->true or false|
+superclass|Class:Class Description:Returns the superclass of class, or nil.  returns nil when the given class hasn't a parent class: -|()->a_super_class or nil|
+swapcase|||
+swapcase!|Class:String Description:Equivalent to String#swapcase, but modifies the receiver inplace, returning str, or nil if no changes were made.Note: case conversion is effective only in ASCII region. -|()->str or nil|
+sync|Class:IO Description:Returns the current "sync mode" of ios. When sync mode is true,all output is immediately flushed to the underlying operating system and isnot buffered by Ruby internally. See also IO#fsync. -|()->true or false|
+sync =|Class:IO Description:Sets the "sync mode" to true or false. When syncmode is true, all output is immediately flushed to the underlying operatingsystem and is not buffered internally. Returns the new state. See alsoIO#fsync.  (produces no output) -|boolean->boolean|
+synchronize|Class:Mutex Description:Obtains a lock, runs the block, and releases the lock when the blockcompletes.  See the example under Mutex. -|->result of the block|
+syscall|Class:Kernel Description:syscall is essentially unsafe and unportable. Feel free toshoot your foot. DL (Fiddle) library is preferred for safer and a bit moreportable programming. -|(num [, args...])->integer|
+sysread|Class:IO Description:Reads maxlen bytes from ios using a low-level read andreturns them as a string.  Do not mix with other methods that read fromios or you may get unpredictable results. If the optionaloutbuf argument is present, it must reference a String, which will receive the data. Theoutbuf will contain only the received data after the method calleven if it is not empty at the beginning. RaisesSystemCallError on error and EOFError at end offile. -|(maxlen[, outbuf])->string|
+sysseek|Class:IO Description:Seeks to a given offset in the stream according to the value ofwhence (see IO#seek for values of whence).Returns the new offset into the file. -|(offset, whence=IO::SEEK_SET)->integer|
+system|Class:Kernel Description:Executes command... in a subshell. command... is one offollowing forms.  system returns true if the command gives zero exit status,false for non zero exit status. Returns nil ifcommand execution fails. An error status is available in $?.The arguments are processed in the same way as forKernel.spawn.  The hash arguments, env and options, are same as exec andspawn. See Kernel.spawn for details.  produces:  See Kernel.exec for the standard shell. -|([env,] command... [,options])->true, false or nil|
+syswrite|Class:IO Description:Writes the given string to ios using a low-level write. Returnsthe number of bytes written. Do not mix with other methods that write toios or you may get unpredictable results. RaisesSystemCallError on error. -|(string)->integer|
+taint|Class:Object Description:Mark the object as tainted.  Objects that are marked as tainted will be restricted from various built-inmethods. This is to prevent insecure data, such as command-line argumentsor strings read from Kernel#gets,from inadvertently compromising the users system.  To check whether an object is tainted, use tainted?  You should only untaint a tainted object if your code has inspected it anddetermined that it is safe. To do so use untaint  In $SAFE level 3 and 4, all objects are tainted and untrusted, any use oftrust or taint methods will raise a SecurityError exception. -|()->obj|
+tainted?|Class:Object Description:Returns true if the object is tainted.  See taint for more information. -|()->true or false|
+take|||
+take_while|||
+tap|Class:Object Description:Yields x to the block, and then returns x. Theprimary purpose of this method is to "tap into" a method chain, in order toperform operations on intermediate results within the chain. -|->obj|
+tell|||
+terminate|Class:Thread Description:Terminates thr and schedules another thread to be run.  If this thread is already marked to be killed, exit returns the Thread.  If this is the main thread, or the last thread, exits the process. -|()->thr or nil|
+termsig|Class:Process::Status Description:Returns the number of the signal that caused stat to terminate (ornil if self was not terminated by an uncaught signal). -|()->fixnum or nil|
+test|Class:Kernel Description:Uses the integer cmd to perform various tests onfile1 (first table below) or on file1 andfile2 (second table).  File tests on a single file:  Tests that take two files: -|(cmd, file1 [, file2] )->obj|
+thread_variable?|Class:Thread Description:Returns true if the given string (or symbol) exists as athread-local variable.  Note that these are not fiber local variables.  Please see Thread#[] and #thread_variable_getfor more details. -|(key)->true or false|
+thread_variable_get|Class:Thread Description:Returns the value of a thread local variable that has been set.  Note thatthese are different than fiber local values.  For fiber local values,please see Thread#[] and Thread#[]=.  Thread local values are carried along withthreads, and do not respect fibers.  For example:  The value "bar" is returned for the thread local, where nil is returned forthe fiber local.  The fiber is executed in the same thread, so the threadlocal values are available.  See also Thread#[] -|(key)->obj or nil|
+thread_variable_set|Class:Thread Description:Sets a thread local with key to value.  Note thatthese are local to threads, and not to fibers.  Please see #thread_variable_getand Thread#[] for more information. -|(key, value)->|
+thread_variables|Class:Thread Description:Returns an array of the names of the thread-local variables (as Symbols).  Note that these are not fiber local variables.  Please see Thread#[] and #thread_variable_getfor more details. -|()->array|
+throw|Class:Kernel Description:Transfers control to the end of the active catch block waitingfor tag. Raises ArgumentError if there is nocatch block for the tag. The optional secondparameter supplies a return value for the catch block, whichotherwise defaults to nil. For examples, seeKernel::catch. -|(tag [, obj])->|
+thursday?|Class:Time Description:Returns true if time represents Thursday. -|()->true or false|
+to_ary|Class:Array Description:Returns self. -|()->ary|
+to_c|||
+to_enum|||
+to_f|||
+to_h|||
+to_i|||
+to_int|||
+to_io|||
+to_path|||
+to_proc|||
+to_r|||
+to_str|Class:String Description:Returns the receiver. -|()->str|
+to_sym|||
+to_write_io|Class:ARGF Description:Returns IO instance tied to ARGF for writingif inplace mode is enabled. -|()->io|
+tr|Class:String Description:Returns a copy of str with the characters infrom_str replaced by the corresponding characters into_str.  If to_str is shorter thanfrom_str, it is padded with its last character in order tomaintain the correspondence.  Both strings may use the c1-c2 notation to denote ranges ofcharacters, and from_str may start with a ^,which denotes all characters except those listed.  The backslash character &lt;/code&gt; can be used to escape&lt;code&gt;^ or - and is otherwise ignored unless itappears at the end of a range or the end of the from_str orto_str: -|(from_str, to_str)->new_str|
+tr!|Class:String Description:Translates str in place, using the same rules asString#tr. Returns str, or nil if nochanges were made. -|(from_str, to_str)->str or nil|
+tr_s|Class:String Description:Processes a copy of str as described under String#tr,then removes duplicate characters in regions that were affected by thetranslation. -|(from_str, to_str)->new_str|
+tr_s!|Class:String Description:Performs String#tr_s processing on str in place,returning str, or nil if no changes were made. -|(from_str, to_str)->str or nil|
+trace_var|Class:Kernel Description:Controls tracing of assignments to global variables. The parameter +symbol_identifies the variable (as either a string name or a symbol identifier).cmd (which may be a string or a Proc object) or blockis executed whenever the variable is assigned. The block orProc object receives the variable's new value as a parameter.Also see Kernel::untrace_var.  produces: -|(symbol, cmd )->nil|
+transfer|Class:Fiber Description:Transfer control to another fiber, resuming it from where it last stoppedor starting it if it was not resumed before. The calling fiber will besuspended much like in a call to Fiber.yield. You need torequire 'fiber' before using this method.  The fiber which receives the transfer call is treats it much like a resumecall. Arguments passed to transfer are treated like those passed to resume.  You cannot resume a fiber that transferred control to another one. Thiswill cause a double resume error. You need to transfer control back to thisfiber before it can yield and resume.  Example: -|(args, ...)->obj|
+transpose|Class:Array Description:Assumes that self is an array of arrays and transposes therows and columns.  If the length of the subarrays don't match, an IndexError is raised. -|()->new_ary|
+trust|Class:Object Description:Deprecated method that is equivalent to untaint. -|()->obj|
+try_lock|Class:Mutex Description:Attempts to obtain the lock and returns immediately. Returnstrue if the lock was granted. -|()->true or false|
+tty?|Class:IO Description:Returns true if ios is associated with a terminaldevice (tty), false otherwise. -|()->true or false|
+tuesday?|Class:Time Description:Returns true if time represents Tuesday. -|()->true or false|
+tv_nsec|Class:Time Description:Returns the number of nanoseconds for time.  The lowest digits of to_f and nsec are different because IEEE 754double is not accurate enough to represent the exact number of nanosecondssince the Epoch.  The more accurate value is returned by nsec. -|()->int|
+tv_sec|Class:Time Description:Returns the value of time as an integer number of seconds sincethe Epoch. -|()->int|
+tv_usec|Class:Time Description:Returns the number of microseconds for time. -|()->int|
+unbind|Class:Method Description:Dissociates meth from its current receiver. The resultingUnboundMethod can subsequently be bound to a new object of thesame class (see UnboundMethod). -|()->unbound_method|
+undef_method|Class:Module Description:Prevents the current class from responding to calls to the named method.Contrast this with remove_method, which deletes the methodfrom the particular class; Ruby will still search superclasses and mixed-inmodules for a possible receiver. String argumentsare converted to symbols.  produces: -|(symbol)->self|
+ungetbyte|Class:IO Description:Pushes back bytes (passed as a parameter) onto ios, such that asubsequent buffered read will return it. Only one byte may be pushed backbefore a subsequent read operation (that is, you will be able to read onlythe last of several bytes that have been pushed back). Has no effect withunbuffered reads (such as IO#sysread). -|(string)->nil|
+ungetc|Class:IO Description:Pushes back one character (passed as a parameter) onto ios, suchthat a subsequent buffered character read will return it. Only onecharacter may be pushed back before a subsequent read operation (that is,you will be able to read only the last of several characters that have beenpushed back). Has no effect with unbuffered reads (such asIO#sysread). -|(string)->nil|
+uniq|Class:Array Description:Returns a new array by removing duplicate values in self.  If a block is given, it will use the return value of the block forcomparison.  It compares values using their hashand eql? methods for efficiency. -|()->new_ary|
+uniq!|Class:Array Description:Removes duplicate elements from self.  If a block is given, it will use the return value of the block forcomparison.  It compares values using their hashand eql? methods for efficiency.  Returns nil if no changes are made (that is, no duplicates arefound). -|()->ary or nil|
+unlock|Class:Mutex Description:Releases the lock. Raises ThreadError if mutexwasn't locked by the current thread. -|()->self|
+unpack|Class:String Description:Decodes str (which may contain binary data) according to theformat string, returning an array of each value extracted. The formatstring consists of a sequence of single-character directives, summarized inthe table at the end of this entry. Each directive may be followed by anumber, indicating the number of times to repeat with this directive. Anasterisk ("*") will use up all remaining elements. Thedirectives sSiIlL may each be followed by an underscore("_") or exclamation mark ("!") to use theunderlying platform's native size for the specified type; otherwise, ituses a platform-independent consistent size. Spaces are ignored in theformat string. See also Array#pack.  This table summarizes the various formats and the Ruby classes returned byeach. -|(format)->anArray|
+unshift|Class:Array Description:Prepends objects to the front of self, moving other elementsupwards. See also #shift for theopposite effect. -|(obj, ...)->ary|
+untaint|Class:Object Description:Removes the tainted mark from the object.  See taint for more information. -|()->obj|
+untrace_var|Class:Kernel Description:Removes tracing for the specified command on the given global variable andreturns nil. If no command is specified, removes all tracingfor that variable and returns an array containing the commands actuallyremoved. -|(symbol [, cmd] )->array or nil|
+untrust|Class:Object Description:Deprecated method that is equivalent to taint. -|()->obj|
+untrusted?|Class:Object Description:Deprecated method that is equivalent to tainted?. -|()->true or false|
+upcase|||
+upcase!|Class:String Description:Upcases the contents of str, returning nil if nochanges were made. Note: case replacement is effective only in ASCIIregion. -|()->str or nil|
+upto|||
+usec|Class:Time Description:Returns the number of microseconds for time. -|()->int|
+using|Class:Module Description:Import class refinements from module into the current class ormodule definition. -|(module)->self|
+utc?|Class:Time Description:Returns true if time represents a time in UTC (GMT). -|()->true or false|
+utc_offset|Class:Time Description:Returns the offset in seconds between the timezone of time andUTC. -|()->fixnum|
+valid_encoding?|Class:String Description:Returns true for a string which encoded correctly. -|()->true or false|
+value|Class:Thread Description:Waits for thr to complete, using join, and returns its value. -|()->obj|
+wakeup|Class:Thread Description:Marks a given thread as eligible for scheduling, however it may stillremain blocked on I/O.  Note: This does not invoke the scheduler, see run for more information. -|()->thr|
+warn|Class:Kernel Description:Displays each of the given messages followed by a record separator onSTDERR unless warnings have been disabled (for example with the-W0 flag). -|(msg, ...)->nil|
+wday|Class:Time Description:Returns an integer representing the day of the week, 0..6, with Sunday ==0. -|()->fixnum|
+wednesday?|Class:Time Description:Returns true if time represents Wednesday. -|()->true or false|
+with_index|Class:Enumerator Description:Iterates the given block for each element with an index, which starts fromoffset.  If no block is given, returns a new Enumerator that includes the index, startingfrom offset  the starting index to use -|(offset = 0) {(*args), idx ... }->|
+with_object|Class:Enumerator Description:Iterates the given block for each element with an arbitrary object,obj, and returns obj  If no block is given, returns a new Enumerator. -|(obj) {(*args), obj ... }->|
+write_nonblock|Class:IO Description:Writes the given string to ios using the write(2) system callafter O_NONBLOCK is set for the underlying file descriptor.  It returns the number of bytes written.  #write_nonblock just callsthe write(2) system call. It causes all errors the write(2) system callcauses: Errno::EWOULDBLOCK, Errno::EINTR, etc. The result may also besmaller than string.length (partial write). The caller should care sucherrors and partial write.  If the exception is Errno::EWOULDBLOCK or Errno::AGAIN, it is extended byIO::WaitWritable. So IO::WaitWritable can be used to rescue theexceptions for retrying write_nonblock.  If the write buffer is not empty, it is flushed at first.  When #write_nonblock raisesan exception kind of IO::WaitWritable,#write_nonblock should not becalled until io is writable for avoiding busy loop. This can be done asfollows.  Note that this doesn't guarantee to write all data in string. The lengthwritten is reported as result and it should be checked later.  On some platforms such as Windows, #write_nonblock is not supportedaccording to the kind of the IO object. In suchcases, #write_nonblock raisesErrno::EBADF. -|(string)->integer|
+yday|Class:Time Description:Returns an integer representing the day of the year, 1..366. -|()->fixnum|
+year|Class:Time Description:Returns the year for time (including the century). -|()->fixnum|
+zip|||
+zone|Class:Time Description:Returns the name of the time zone used for time. As of Ruby 1.8,returns "UTC" rather than "GMT" for UTC times. -|()->string|
